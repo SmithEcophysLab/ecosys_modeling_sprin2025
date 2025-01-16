@@ -12,7 +12,7 @@
 2. Pre-class questionnaire and discussion
 3. Course structure, goals, and [syllabus](../syllabus)
 4. Discussion of semester outlook
-5. [Course website](https://github.com/SmithEcophysLab/biol6301_sprin2025)
+5. [Course website](https://github.com/SmithEcophysLab/ecosys_modeling_sprin2025)
 	- Mention [user_guide.md](../user_guide.md)
 6. Finding and reading scientific literature
 7. Weekly topic discussion: pick weekly topics and choose topic leaders

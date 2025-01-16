@@ -1,21 +1,20 @@
 # Class notes for January 16, 2025
 
 ## Objectives
-- Introduce the course and [syllabi](../syllabus)
+- Introduce the course and [syllabus](../syllabus)
 - Learn a bit about each other's interests and background
 - Discuss how to search for and read scientific literature
 - Choose weekly topic preferences
 	- decision to be made on Thursday following collation
 
 ## Agenda
-1. Introductions (in groups)
-2. Pre-class questionnaire and discussion
-3. Course structure, goals, and [syllabus](../syllabus)
-4. Discussion of semester outlook
-5. [Course website](https://github.com/SmithEcophysLab/ecosys_modeling_sprin2025)
+1. Introductions
+2. Course structure, goals, and [syllabus](../syllabus)
+3. Discussion of semester outlook
+4. [Course website](https://github.com/SmithEcophysLab/ecosys_modeling_sprin2025)
 	- Mention [user_guide.md](../user_guide.md)
-6. Finding and reading scientific literature
-7. Weekly topic discussion: pick weekly topics and choose topic leaders
+5. Finding and reading scientific literature
+6. Weekly topic discussion: pick weekly topics and choose topic leaders
 	- secret ballot that Nick will collate (pick your favorite!)
 	- [file for inputting and storing leads](../weekly_leads/weekly_leads.md)
 

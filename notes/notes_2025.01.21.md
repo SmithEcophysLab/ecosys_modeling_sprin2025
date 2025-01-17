@@ -5,7 +5,7 @@
 
 ## Agenda
 1. Lecture on systems thinking for terrestrial ecosystem modeling
-	- [link to slides]('../lecture_slides/tem_slides_2025.01.21.pdf')
+	- [link to slides](../lecture_slides/tem_slides_2025.01.21.pdf)
 2. Discuss any questions from Bonan (2019) pages 1-16
 3. Define jigsaw groups for discussion of Chapin et al. (2011). Chapter 1.
 	- 2 groups of 4

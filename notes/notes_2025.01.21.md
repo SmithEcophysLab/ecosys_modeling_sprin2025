@@ -11,9 +11,13 @@
 	- 2 groups of 4
 	- Everyone reads pages 3-8
 	1. History of Ecosystem Ecology (pg. 8-11)
+		- monika, garrison
 	2. Ecosystem structure and functioning (pg. 11-13)
+		- isa, snehanjana
 	3. Controls over ecosystem processes (pg. 13-17)
-	4. Human-induced ecosystem change (pg. 17-21) 
+		- azaj, pawan
+	4. Human-induced ecosystem change (pg. 17-21)
+		- puja, alissar
 
 ## Homework
 - Read Chapin et al. (2011). Chapter 1. The full citation and link can be found in the 

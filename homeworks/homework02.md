@@ -37,3 +37,5 @@ that your script is in. Name this object "homework02_data"
 	with appropriate axis titles (including units)
 
 When completed, email your R script to [Nick](emailto:nick.smith@ttu.edu).
+
+The assignment is due by the start of next class period.

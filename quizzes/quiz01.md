@@ -12,4 +12,4 @@ decomposition?
 4. Describe the tradeoff associated with creating increasingly complex models?
 
 We will work on this quiz at the beginning of class (~15 minutes).
-Email to [Nick](emailto:nick.smith@ttu.edu) when you are done.
+Email answers to [Nick](emailto:nick.smith@ttu.edu) when you are done.

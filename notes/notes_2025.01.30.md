@@ -5,10 +5,10 @@
 
 ## Agenda
 1. Quiz 2
-	- [link to Quiz 1](../quizzes/quiz02.md)
+	- [link to Quiz 2](../quizzes/quiz02.md)
 2. Jigsaw discussion of Chapin (2011) Chapter 6
 3. Work on Homework 2
-	- [link to Homework 1](../homeworks/homework02.md)
+	- [link to Homework 2](../homeworks/homework02.md)
 
 ## Homework
 - Read Bonan (2019). Pages 17-24. The full citation and link can be found in the 

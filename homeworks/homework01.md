@@ -7,6 +7,6 @@ carbon cycle in an electronic document. Describe your rationale for why you have
 
 2. Using boxes (pools) and arrows (fluxes), piece all of your pools and fluxes together in a Powerpoint doc.
 
-When completed, email both documents to [Nick](emailto:nick.smith@ttu.edu).
+When completed, email both documents to [Nick](mailto:nick.smith@ttu.edu).
 
 The assignment is due by the start of next class period.

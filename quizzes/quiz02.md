@@ -1,4 +1,4 @@
-# Quiz 1
+# Quiz 2
 
 1. What is net ecosystem productivity (NEP) and how is gross primary productivity (GPP),
 autotrophic respiration (Ra), and heterotrophic respiration (Rh) involved?

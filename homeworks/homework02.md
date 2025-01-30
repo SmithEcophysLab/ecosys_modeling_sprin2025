@@ -36,6 +36,6 @@ that your script is in. Name this object "homework02_data"
 	- plot nep as a function of gep using open blue squares in units of µmolC m-2 s-1
 	with appropriate axis titles (including units)
 
-When completed, email your R script to [Nick](emailto:nick.smith@ttu.edu).
+When completed, email your R script to [Nick](mailto:nick.smith@ttu.edu).
 
 The assignment is due by the start of next class period.

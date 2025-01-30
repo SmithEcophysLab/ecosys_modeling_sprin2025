@@ -1,6 +1,6 @@
 # Quiz 1
 
-1. What is net ecosystem productivity (NPP) and how is gross primary productivity (GPP),
+1. What is net ecosystem productivity (NEP) and how is gross primary productivity (GPP),
 autotrophic respiration (Ra), and heterotrophic respiration (Rh) involved?
 
 2. Name at least 5 places carbon can go (i.e., carbon pools) after it is assimilated from the

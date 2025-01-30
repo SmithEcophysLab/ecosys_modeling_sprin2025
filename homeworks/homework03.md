@@ -9,7 +9,7 @@ we will make sure that everyone is comfortable using  Git and GitHub.
 	- Tip: I create a folder in my Documents folder within my home drive called Git
 	(e.g., '/Users/nicksmith/Documents/Git/')
 
-3. (if necessary) Creat a GitHub account on [github.com](github.com)
+3. (if necessary) Creat a GitHub account on [github.com](https://www.github.com)
 
 4. Clone the class repository into your folder created in the previous prompt
 

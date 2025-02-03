@@ -1,4 +1,4 @@
-# ecosys_modeling_sprin2025
+# ecosys_modeling_sprin2025 branch for Azaj Mahmud
 Repository for Spring 2025 Ecosystem Modeling class
 
 ## Folder structure
@@ -14,5 +14,4 @@ Repository for Spring 2025 Ecosystem Modeling class
 - [weekly_leads](weekly_leads): list of weekly student leaders
 
 ## authors
-- [Nick Smith](mailto:nick.smith@ttu.edu)
-	- primary instructor for the course
+- [Azaj Mahmud]

@@ -4,10 +4,11 @@
 - Discuss terrestrial ecosystem C and N cycling
 
 ## Agenda
-1. Lecture on terrestrial models
+1. Discussion of Homework 2
+2. Lecture on terrestrial models
 	- [link to slides](../lecture_slides/tem_slides_2025.02.04.pdf)
-2. Discuss any questions from Bonan and Doney (2018)
-3. Define jigsaw groups for discussion of Ram (2013)
+3. Discuss any questions from Bonan and Doney (2018)
+4. Define jigsaw groups for discussion of Ram (2013)
 	- 2 groups of 4
 	- Everyone reads Introduction and Conclusions
 	1. Use cases for Git in science: 1. lab notebook and 2. facilitation collaboration

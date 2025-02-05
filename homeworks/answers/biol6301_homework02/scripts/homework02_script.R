@@ -37,7 +37,7 @@ hw2_data$gep_umols <- hw2_data$gep * gd_to_umols_cf
 
 ## plot nep as a function of gep
 gep_temp_plot <- ggplot(data = hw2_data, aes(y = nep_umols, x = gep_umols)) +
-  geom_point(shape = 17, color = 'red') +
+  geom_point(shape = 0, color = 'blue') +
   ylab(expression('NEP (µmol m'^'-2'*' s'^'-1'*')')) +
   xlab(expression('GEP (µmol m'^'-2'*' s'^'-1'*')'))
 

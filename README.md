@@ -1,6 +1,3 @@
-# ecosys_modeling_sprin2025
-Repository for Spring 2025 Ecosystem Modeling class
-
 ## Folder structure
 - [class_model](class_model): folder containing the ecosystem model to be developed by the class
 	- [class_model/functions](class_model/functions): functions necessary to run the class model
@@ -16,6 +13,6 @@ Repository for Spring 2025 Ecosystem Modeling class
 ## authors
 - [Nick Smith](mailto:nick.smith@ttu.edu)
 	- primary instructor for the course
-Snehanajana Chatterjee
-snchatte@ttu.edu
-Student in this course
+- [Snehanjana Chatterjee](mailto:snchatte@ttu.edu)
+   -a student enrolled in the course
+

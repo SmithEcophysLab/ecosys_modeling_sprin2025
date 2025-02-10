@@ -1,4 +1,4 @@
-# Homework 2
+# Homework 3
 To continue approaching our class goal of creating a collective terrestrial ecosystem model,
 we will make sure that everyone is comfortable using  Git and GitHub.
 

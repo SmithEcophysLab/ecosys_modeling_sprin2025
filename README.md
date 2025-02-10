@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 # ecosys_modeling_sprin2025 
 Repository for Spring 2025 Ecosystem Modeling class
 
+=======
+>>>>>>> e11cc8f (updated README with proper formatting)
 ## Folder structure
 - [class_model](class_model): folder containing the ecosystem model to be developed by the class
 	- [class_model/functions](class_model/functions): functions necessary to run the class model

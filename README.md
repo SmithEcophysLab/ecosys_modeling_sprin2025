@@ -1,4 +1,4 @@
-# ecosys_modeling_sprin2025
+# ecosys_modeling_sprin2025 
 Repository for Spring 2025 Ecosystem Modeling class
 
 ## Folder structure
@@ -14,9 +14,16 @@ Repository for Spring 2025 Ecosystem Modeling class
 - [weekly_leads](weekly_leads): list of weekly student leaders
 
 ## authors
+## authors
 - [Nick Smith](mailto:nick.smith@ttu.edu)
 	- primary instructor for the course
+- [Azaj Mahmud](mailto:azmahmud@ttu.edu)
+	- student enrolled in the course
 - [Pawan Devkota](mailto:pdevkota@ttu.edu)
-	- a student enrolled in the course
+	- student enrolled in the course
 -[Monika Kelley](mailto:monikell@ttu.edu)
-	- student
+	- student enrolled in the course
+- [Isabella Beltran](mailto:ibeltran@ttu.edu)
+	- student enrolled in the course
+- [Puja Roy](mailto:puroy@ttu.edu)
+	- student enrolled in the course

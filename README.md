@@ -18,3 +18,5 @@ Repository for Spring 2025 Ecosystem Modeling class
 	- primary instructor for the course
 - [Pawan Devkota](mailto:pdevkota@ttu.edu)
 	- a student enrolled in the course
+- [Isabella Beltran](mailto:ibeltran@ttu.edu)
+        - a student enrolled in the course

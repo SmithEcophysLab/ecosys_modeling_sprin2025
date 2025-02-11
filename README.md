@@ -17,13 +17,17 @@ Repository for Spring 2025 Ecosystem Modeling class
 ## authors
 - [Nick Smith](mailto:nick.smith@ttu.edu)
 	- primary instructor for the course
+- [Garrison Garza](mainto:garrgarz@ttu.edu)
+  - student enrolled in the course
 - [Azaj Mahmud](mailto:azmahmud@ttu.edu)
 	- student enrolled in the course
 - [Pawan Devkota](mailto:pdevkota@ttu.edu)
 	- student enrolled in the course
- - [Monika Kelley](mailto:monikell@ttu.edu)
+- [Monika Kelley](mailto:monikell@ttu.edu)
 	- student enrolled in the course
 - [Isabella Beltran](mailto:ibeltran@ttu.edu)
 	- student enrolled in the course
 - [Puja Roy](mailto:puroy@ttu.edu)
 	- student enrolled in the course
+- [Snehanjana Chatterjee](snchatte@ttu.edu)
+  - student enrolled in the course

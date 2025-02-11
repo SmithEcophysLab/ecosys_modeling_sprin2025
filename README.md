@@ -29,5 +29,5 @@ Repository for Spring 2025 Ecosystem Modeling class
 	- student enrolled in the course
 - [Puja Roy](mailto:puroy@ttu.edu)
 	- student enrolled in the course
-- [Snehanjana Chatterjee](snchatte@ttu.edu)
+- [Snehanjana Chatterjee](mailto:snchatte@ttu.edu)
   - student enrolled in the course

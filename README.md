@@ -16,3 +16,5 @@ Repository for Spring 2025 Ecosystem Modeling class
 ## authors
 - [Nick Smith](mailto:nick.smith@ttu.edu)
 	- primary instructor for the course
+- [Garrison Garz](mainto:garrgarz@ttu.edu)
+  - Student

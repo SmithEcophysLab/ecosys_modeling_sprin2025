@@ -21,7 +21,7 @@ Repository for Spring 2025 Ecosystem Modeling class
 	- student enrolled in the course
 - [Pawan Devkota](mailto:pdevkota@ttu.edu)
 	- student enrolled in the course
--[Monika Kelley](mailto:monikell@ttu.edu)
+ - [Monika Kelley](mailto:monikell@ttu.edu)
 	- student enrolled in the course
 - [Isabella Beltran](mailto:ibeltran@ttu.edu)
 	- student enrolled in the course

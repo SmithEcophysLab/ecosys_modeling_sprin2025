@@ -20,6 +20,8 @@ Repository for Spring 2025 Ecosystem Modeling class
 - [Azaj Mahmud](mailto:azmahmud@ttu.edu)
   - student enrolled in the course
 - [Pawan Devkota](mailto:pdevkota@ttu.edu)
-	- student enrolled in the course
+	- a student enrolled in the course
+- [Isabella Beltran](mailto:ibeltran@ttu.edu)
+        - a student enrolled in the course
 - [Puja Roy](mailto:puroy@ttu.edu)
 	- student enrolled in the course

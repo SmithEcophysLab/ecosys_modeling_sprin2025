@@ -5,7 +5,9 @@
 - continue discussing collaborating on GitHub
 
 ## Agenda
-1. Quiz 4
+1. Quick discussion of Prentice et al. (2015)
+	- [link to slides](../lecture_slides/tem_slides_2025.02.11.pdf)
+2. Quiz 4
 	- [link to Quiz 4](../quizzes/quiz04.md)
 2. Discussion of module ideas
 	- Garry to help lead

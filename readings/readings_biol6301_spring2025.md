@@ -40,7 +40,7 @@ temporal impact of ecological research: A roadmap for integrating a novel terres
 process into an Earth system model. Global Change Biology, 28, 665–684.
 
 ## February 20
-TBD
+Hands-On Programming with R (Chapter 2). [link](https://rstudio-education.github.io/hopr/basics.html)
 
 ## February 25
 Harrison SP, Cramer W, Franklin O et al. (2021) Eco-evolutionary optimality as a means 

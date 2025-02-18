@@ -8,3 +8,5 @@
 
 # Possible Inputs: Light, Temperature, CO2
 # Possible Outputs: Assimilated Carbon
+
+# 1: This process should respond to environmental drivers

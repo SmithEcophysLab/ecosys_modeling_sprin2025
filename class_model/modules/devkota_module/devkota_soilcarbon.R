@@ -25,6 +25,24 @@
 # below ground diversity which can change carbon turnover rate from the soil.
 # i also intend to include those management strategies in my soil carbon module.
 
+# Possible Inputs needed for the model:
+# litter biomass
+# C:N ratio of litter
+# microbial biomass carbon
+# abundances of fungi and bacteria
+# clay %
+# tillage (binary variable)
+# crop rotation (binary variable)
+# cover crop (binary variable)
+
+
+# Output
+# proportion of labile and recalcitrant fraction of soil C
+# C release through decomposition
+# simulate whether soil acts as carbon sink or source
+
+
+
 
 
 

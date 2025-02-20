@@ -27,4 +27,26 @@ class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron 
   m <- (ci - gammastar) / (ci +2*gammastar)
   aj <- (j/4) * m
   
+  # output results
+  results <- data.frame('phi_j' = phi_j,
+                        'par0' = par0,
+                        'z' = z,
+                        'temperature' = temperature,
+                        'vpd0' = vpd0,
+                        'ca0' = ca0,
+                        'oa0' = oa0,
+                        'cica' = cica,
+                        'par' = par,
+                        'patm' = patm,
+                        'vpd' = vpd,
+                        'ca' = ca,
+                        'oa' = oa,
+                        'j' = j,
+                        'gammastar' = gammastar,
+                        'ci' = ci,
+                        'm' = m,
+                        'aj' = aj)
+  
+  results
+  
 }

@@ -9,7 +9,10 @@ class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron 
                         vpd0 = 1, # vapor pressure deficit at sea level (kPa)
                         ca0 = 400, # atmpsheric CO2 (µmol mol-1)
                         oa0 = 209460, # atmpsheric O2 (µmol mol-1)
-                        cica = 0.7 # ratio of intercellular to atmospheric CO2
+                        cica = 0.7, # ratio of intercellular to atmospheric CO2
+                        lai = 1, #leaf area index (m2 m-2)
+                        rgpp_ratio = 0.47, # ratio of plant respiration to gpp (Waring)
+                        rnpp_ratio = 0.5 # ratio of npp lost from ecosystem respiration
                         ){
   
   # conversions
@@ -22,10 +25,22 @@ class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron 
   # carbon in
   ## leaf photosynthesis
   j <- phi_j * par # electron transport rate (µmol m-2 s-1)
-  gammastar <- calc_gammastar_pa(temperature, z)
-  ci = cica * ca
-  m <- (ci - gammastar) / (ci +2*gammastar)
-  aj <- (j/4) * m
+  gammastar <- calc_gammastar_pa(temperature, z) # co2 compensation point (Pa)
+  ci = cica * ca # intercellular CO2 (Pa)
+  m <- (ci - gammastar) / (ci +2*gammastar) # co2 limitation of photosynthesis (unitless)
+  aj <- (j/4) * m # gross photosynthesis (µmol m-2 s-1)
+  
+  ## gpp
+  gpp <- aj * lai # gross primary productivity (µmol m-2 s-1)
+  
+  ## npp
+  rplant <- rgpp_ratio*gpp
+  npp <- gpp - rplant # net primary productivity (µmol m-2 s-1)
+  
+  ## nee
+  reco <- rnpp_ratio * npp
+  nep <- npp - reco # net ecosystem productivity (µmol m-2 s-1)
+  
   
   # output results
   results <- data.frame('phi_j' = phi_j,
@@ -36,6 +51,8 @@ class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron 
                         'ca0' = ca0,
                         'oa0' = oa0,
                         'cica' = cica,
+                        'rgpp_ratio' = rgpp_ratio,
+                        'rnpp_ratio' = rnpp_ratio,
                         'par' = par,
                         'patm' = patm,
                         'vpd' = vpd,
@@ -45,7 +62,12 @@ class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron 
                         'gammastar' = gammastar,
                         'ci' = ci,
                         'm' = m,
-                        'aj' = aj)
+                        'aj' = aj,
+                        'gpp' = gpp,
+                        'rplant' = rplant,
+                        'npp' = npp,
+                        'reco' = reco,
+                        'rnpp' = rnpp)
   
   results
   

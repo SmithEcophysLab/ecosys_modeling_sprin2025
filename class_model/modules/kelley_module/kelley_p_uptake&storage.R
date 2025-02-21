@@ -4,7 +4,6 @@
 ## date: 2025/02/18
 ################################################################################
 
-## MRK note: feels too general/ basic? hoping to refine this a more after class.
 
 # task: ------------------------------------------------------------------------
 # add a description of your module. This might include the purpose of your
@@ -22,6 +21,31 @@
 # inputs and outputs: ----------------------------------------------------------
 ## inputs: fertilizer application, dust deposition, and weathering
 ## likely outputs: pools within in plants, litter, soil, and microbial
+
+
+# Recreating CENTURY model -----------------------------------------------------
+# CENTURY model Parton et al. (1987)
+# looking at R documentation for some guidance
+# https://search.r-project.org/CRAN/refmans/SoilR/html/CenturyModel.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # sources: ---------------------------------------------------------------------

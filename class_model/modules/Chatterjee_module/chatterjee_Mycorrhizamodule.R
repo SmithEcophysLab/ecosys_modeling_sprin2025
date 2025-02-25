@@ -21,3 +21,30 @@
 # be transported through that network to other fungal species if they are cheating or
 # being parasitic. Soil organic matter is the largest pool of carbon that is formed
 # due to decomposition by protozoa, protists and bacteria.
+
+
+
+mycorrhizal_fungi_module <- function(carbon_fixed = 100,  # amount of carbon fixed by plants
+                                    fungal_transfer_rate = 0.2, # percentage of C transferred to mycorrhiza
+                                    fungal_biomass_rate = 0.7,  # percentage of C used to make fungal biomass
+                                    fungal_respiration_rate = 0.3) # percentage of C lost by hyphal respiration
+     {
+       # Amount of carbon transferred to fungi
+        C_to_fungi <- carbon_fixed * fungal_transfer_rate
+        
+       # Amount of carbon allocated to fungal biomass and respiration
+       C_to_fungal_biomass <- C_to_fungi * fungal_biomass_rate
+       C_respired <- C_to_fungi * fungal_respiration_rate
+      
+        results <- list(C_to_fungi,C_to_fungal_biomass,C_respired)
+        
+           return(results)
+         }
+
+results <- mycorrhizal_fungi_module()
+
+
+
+
+
+

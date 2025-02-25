@@ -62,12 +62,7 @@ kelley_module <- function (
   
 }
 
-## testing module ---------------------------------------------------
-kelley_module() # 🎇 IT WORKS, real simple but works 🎇
 
-## testing w/ modified temp. 
-kelley_module(temp_max = 45)
-kelley_module(temp_max = seq(25, 45, 5))
 
 # sources: ---------------------------------------------------------------------
 

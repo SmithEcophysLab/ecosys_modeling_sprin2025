@@ -42,9 +42,40 @@
 # simulate whether soil acts as carbon sink or source
 
 
+#############################################################
 
+# The function takes litter biomass, percentage of carbon in litter, 
+# proportion of carbon that goes to particulte organic carbon (POC),
+# proportion of C assimilated by microbes, and proportion of easily decomposable
+# POC as inputs. The calculates the labile and recalitrant carbon fraction based
+# the input provided and results the data frame with total litter carbon, labile
+# carbon and recalcitrant carbon sequestered in the soil.
+#
 
+carbon_fraction <- function (lB = 100 , # litter biomass
+                             C = 50, # C content of the litter
+                             alpha = 0.2, # % of C in litter that goes to POC
+                             beta = 0.2, # proportion of C in litter assimilated by microbes
+                             gamm = 0.7) # proportion of POC that are easily decomposable
+{
+  
+  lC  <- LB * C # total C in litter
+  POC <- LC * alpha
+  MBC <- LC * beta
+  MOC <-  1 - POC - MBC
+  
+  labile <- MBC + POC *  gamm
+  recalcitrant <-  (1 -gamm) * POC + MOC
+  
+  result <- data.frame('litter_c' = LC,
+                       'labile_fraction' = labile,
+                       "recal_frac" = recalcitrant)
+  return(result)
+}
 
+# The values for alpha, beta, and gamma are arbitrary, and should be determined 
+# using established models and adjusted for the types of litter in the litter 
+# pool in the future.
 
 
 

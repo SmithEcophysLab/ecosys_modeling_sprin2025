@@ -52,20 +52,20 @@
 # carbon and recalcitrant carbon sequestered in the soil.
 #
 
-carbon_fraction <- function (lB = 100 , # litter biomass
+carbon_fraction <- function (LB = 100 , # litter biomass
                              C = 50, # C content of the litter
                              alpha = 0.2, # % of C in litter that goes to POC
                              beta = 0.2, # proportion of C in litter assimilated by microbes
                              gamm = 0.7) # proportion of POC that are easily decomposable
 {
   
-  lC  <- LB * C # total C in litter
+  LC  <- LB * C # total C in litter
   POC <- LC * alpha
   MBC <- LC * beta
-  MOC <-  1 - POC - MBC
+  MOC <-  LC - POC - MBC
   
   labile <- MBC + POC *  gamm
-  recalcitrant <-  (1 -gamm) * POC + MOC
+  recalcitrant <-  (1-gamm) * POC + MOC
   
   result <- data.frame('litter_c' = LC,
                        'labile_fraction' = labile,

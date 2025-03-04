@@ -54,13 +54,14 @@
 
 carbon_fraction <- function (LB = 1000 , # litter biomass
                              C = 0.6, # % of C content of the litter
-                             a = 0.5, # % of C in litter that goes to POC
+                             a = 0.4, # % of C in litter that goes to POC
                              b = 0.3, # % of C in litter that goes to MOC
                              c = 0.2, # % of C in litter that goes to DOC
                              d = 0.4, # POC to DOC conversion rate
                              e = 0.3, # MOC to DOC conversion rate
                              f = 0.2, # proportion of DOC in litter assimilated by microbes
-                             g = 0.2) # % of DOC lost by leaching 
+                             g = 0.2,  # % of DOC lost by leaching 
+                             h = 0.2) # % of DOC respired by microbes
 {
   
   LC  <- LB * C # total C in litter
@@ -68,16 +69,18 @@ carbon_fraction <- function (LB = 1000 , # litter biomass
   MOC <- LC * b
   DOC <- LC * c + POC * d + MOC * e
   MBC <- DOC * f
-  
-  labile <- DOC - DOC * g
+  leached <- DOC * g
+  respired <- DOC * h
+  labile <- DOC - respired - leached
   recalcitrant <-  (1-d) * POC + (1-e) * MOC
-  carbon_loss <- LC - (labile + recalcitrant + DOC * g)
+  carbon_loss <- LC * (1-(a+b+c)) + respired
   
   result <- data.frame('litter_c' = LC,
                        'labile_fraction' = labile,
                        'microbial_carbon' =  MBC,
                        "recal_frac" = recalcitrant,
-                       "CO2_release" = carbon_loss)
+                       "CO2_release" = carbon_loss,
+                       'carbon_leached' = leached)
   return(result)
 }
 

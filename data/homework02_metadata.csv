@@ -1,8 +1,0 @@
-variable,unit,description
-doy,NA,day of year
-year,NA,year
-nep,gC m-2 d-1,net ecosystem production
-reco,gC m-2 d-1,ecosystem respiration
-temp,¡C,surface air temperature
-par,µmol m-2 s-1,photosynthetically active radiation
-rh,%,relative humidity

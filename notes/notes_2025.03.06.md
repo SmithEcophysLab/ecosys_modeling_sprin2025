@@ -10,6 +10,7 @@
 	- developed by Puja
 2. Work on Homework 7
 	- [link to Homework 7](../homeworks/homework07.md)
+		- due March 25
 	- from here on, most homeworks will follow a similar structure
 		- what is the current state of your module?
 			- where are you at in the Kyker-Snowman road map?

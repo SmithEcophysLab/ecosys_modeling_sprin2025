@@ -52,30 +52,38 @@
 # carbon and recalcitrant carbon sequestered in the soil.
 #
 
-carbon_fraction <- function (LB = 100 , # litter biomass
-                             C = 50, # C content of the litter
-                             alpha = 0.2, # % of C in litter that goes to POC
-                             beta = 0.2, # proportion of C in litter assimilated by microbes
-                             gamm = 0.7) # proportion of POC that are easily decomposable
+carbon_fraction <- function (LB = 1000 , # litter biomass
+                             C = 0.6, # % of C content of the litter
+                             a = 0.4, # % of C in litter that goes to POC
+                             b = 0.3, # % of C in litter that goes to MOC
+                             c = 0.2, # % of C in litter that goes to DOC
+                             d = 0.4, # POC to DOC conversion rate
+                             e = 0.3, # MOC to DOC conversion rate
+                             f = 0.2, # proportion of DOC in litter assimilated by microbes
+                             g = 0.2,  # % of DOC lost by leaching 
+                             h = 0.2) # % of DOC respired by microbes
 {
   
   LC  <- LB * C # total C in litter
-  POC <- LC * alpha
-  MBC <- LC * beta
-  MOC <-  LC - POC - MBC
-  
-  labile <- MBC + POC *  gamm
-  recalcitrant <-  (1-gamm) * POC + MOC
+  POC <- LC * a
+  MOC <- LC * b
+  DOC <- LC * c + POC * d + MOC * e
+  MBC <- DOC * f
+  leached <- DOC * g
+  respired <- DOC * h
+  labile <- DOC - respired - leached
+  recalcitrant <-  (1-d) * POC + (1-e) * MOC
+  carbon_loss <- LC * (1-(a+b+c)) + respired
   
   result <- data.frame('litter_c' = LC,
                        'labile_fraction' = labile,
-                       "recal_frac" = recalcitrant)
+                       'microbial_carbon' =  MBC,
+                       "recal_frac" = recalcitrant,
+                       "CO2_release" = carbon_loss,
+                       'carbon_leached' = leached)
   return(result)
 }
 
-# The values for alpha, beta, and gamma are arbitrary, and should be determined 
-# using established models and adjusted for the types of litter in the litter 
-# pool in the future.
 
 
 

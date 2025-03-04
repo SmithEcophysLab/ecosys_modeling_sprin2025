@@ -2,14 +2,16 @@
 ## primary script for the model developed for the course
 ## note that the 'functions' directory may need to be sourced to run all code
 
-class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron transport
+class_model <- function(phi0 = 0.1, # realized quantum efficiency of electron transport
                         par0 = 400, # photosynthetically active radiation at sea level (µmol m-2 s-1)
+                        fapar = 0.7, # fraction par absorbed
                         z = 0, #elevation (m)
                         temperature = 25, # temperature (°C)
                         vpd0 = 1, # vapor pressure deficit at sea level (kPa)
                         ca0 = 400, # atmpsheric CO2 (µmol mol-1)
                         oa0 = 209460, # atmpsheric O2 (µmol mol-1)
-                        cica = 0.7, # ratio of intercellular to atmospheric CO2
+                        beta = 240, # cost of nutrients relative to water (Wang et al., 2017)
+                        c = 0.41, # cost of jmax (Wang et al., 2017)
                         lai = 1, #leaf area index (m2 m-2)
                         rgpp_ratio = 0.47, # ratio of plant respiration to gpp (Waring)
                         rnpp_ratio = 0.5 # ratio of npp lost from ecosystem respiration
@@ -23,18 +25,21 @@ class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron 
   oa <- oa0 * 1e-6 * patm
   
   # carbon in
-  ## leaf photosynthesis
-  j <- phi_j * par # electron transport rate (µmol m-2 s-1)
+  ## ci/ca (i.e., chi) (Wang et al., 2017)
+  km <- calc_km_pa(temperature, z) # M-M coefficient for rubisco
   gammastar <- calc_gammastar_pa(temperature, z) # co2 compensation point (Pa)
-  ci = cica * ca # intercellular CO2 (Pa)
-  m <- (ci - gammastar) / (ci +2*gammastar) # co2 limitation of photosynthesis (unitless)
-  aj <- (j/4) * m # gross photosynthesis (µmol m-2 s-1)
+  nstar <- calc_nstar(temperature, z) # scalar a ccounting for temperature effect on water viscosity
+  squiggle <- sqrt(beta*((km + gammastar)/(1.6*nstar)))
+  chi <- squiggle / (squiggle + sqrt(vpd*1000)) # ratio of inter to intra cellular co2
   
   ## gpp
-  gpp <- aj * lai # gross primary productivity (µmol m-2 s-1)
+  ci = chi * ca # intercellular CO2 (Pa)
+  m <- (ci - gammastar) / (ci +2*gammastar) # co2 limitation of photosynthesis (unitless)
+  m_prime <- sqrt(1-((c/m)^(2/3)))
+  gpp <- phi0 * m * m_prime * par * fapar # gross primary productivity (µmol m-2 s-1)
   
   ## npp
-  rplant <- rgpp_ratio*gpp
+  rplant <- rgpp_ratio * gpp
   npp <- gpp - rplant # net primary productivity (µmol m-2 s-1)
   
   ## nee
@@ -43,14 +48,14 @@ class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron 
   
   
   # output results
-  results <- data.frame('phi_j' = phi_j,
+  results <- data.frame('phi0' = phi0,
                         'par0' = par0,
                         'z' = z,
                         'temperature' = temperature,
                         'vpd0' = vpd0,
                         'ca0' = ca0,
                         'oa0' = oa0,
-                        'cica' = cica,
+                        'beta' = beta,
                         'rgpp_ratio' = rgpp_ratio,
                         'rnpp_ratio' = rnpp_ratio,
                         'par' = par,
@@ -58,16 +63,19 @@ class_model <- function(phi_j = 0.25, # realized quantum efficiency of electron 
                         'vpd' = vpd,
                         'ca' = ca,
                         'oa' = oa,
-                        'j' = j,
                         'gammastar' = gammastar,
+                        'km' = km,
+                        'nstar' = nstar,
+                        'squiggle' = squiggle,
+                        'chi' = chi,
                         'ci' = ci,
                         'm' = m,
-                        'aj' = aj,
+                        'm_prime' = m,
                         'gpp' = gpp,
                         'rplant' = rplant,
                         'npp' = npp,
                         'reco' = reco,
-                        'rnpp' = rnpp)
+                        'rnpp_ratio' = rnpp_ratio)
   
   results
   

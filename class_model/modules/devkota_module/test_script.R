@@ -1,4 +1,4 @@
 
 source("devkota_soilcarbon.R")
 
-carbon_fraction(LB = seq(20, 60, 10))
+carbon_fraction(LB = seq(200, 600, 50))

@@ -36,7 +36,7 @@ mycorrhizal_fungi_module <- function(carbon_fixed = 100,  # amount of carbon fix
        C_to_fungal_biomass <- C_to_fungi * fungal_biomass_rate
        C_respired <- C_to_fungi * fungal_respiration_rate
       
-        results <- list(C_to_fungi,C_to_fungal_biomass,C_respired)
+        results <- c(C_to_fungi,C_to_fungal_biomass,C_respired)
         
            return(results)
          }

@@ -2,7 +2,7 @@
 ## primary script for the model developed for the course
 ## note that the 'functions' directory may need to be sourced to run all code
 
-class_model <- function(fapar = 0.25, # realized quantum efficiency of electron transport
+class_model <- function(fapar = 0.5, # realized quantum efficiency of electron transport
                         phi0 = 0.05, # quantum yield
                         par0 = 400, # photosynthetically active radiation at sea level (µmol m-2 s-1)
                         z = 0, #elevation (m)
@@ -49,6 +49,7 @@ class_model <- function(fapar = 0.25, # realized quantum efficiency of electron 
   # output results
   results <- data.frame('phi0' = phi0,
                         'par0' = par0,
+                        'fapar' = fapar,
                         'z' = z,
                         'temperature' = temperature,
                         'vpd0' = vpd0,

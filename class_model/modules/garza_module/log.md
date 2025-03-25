@@ -6,3 +6,8 @@
     # Jen Johnson Paper
     # Run my own test script
     # this model uses co2 and o2 in terms of pressure and I need to convert to ppm for use of the model
+    
+    
+### 3/6/2025
+  
+    

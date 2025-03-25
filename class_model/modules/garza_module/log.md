@@ -10,4 +10,5 @@
     
 ### 3/6/2025
   
-    
+    #model works..? I think 
+    # get some unexpected results, or maybe I just need to understand the model better

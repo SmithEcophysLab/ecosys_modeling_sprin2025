@@ -2,9 +2,11 @@
 
 ## Objectives
 - Discuss Tuesday's visit from Josh Fisher
+- Begin discussing carbon allocation
 
 ## Agenda
-1. Quiz 8
+1. Discuss Tuesday's visit from Josh Fisher
+2. Quiz 8
 	- [link to Quiz 8](../quizzes/quiz08.md)
 	- developed by Snehanjana
 2. Work on Homework 8

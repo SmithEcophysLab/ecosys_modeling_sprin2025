@@ -52,7 +52,7 @@
 # carbon and recalcitrant carbon sequestered in the soil.
 #
 
-carbon_fraction <- function (LB = 1000 , # litter biomass
+carbon_fraction <- function (LB = 1000 , # litter biomass (both aboveground and belowground)
                              C = 0.6, # % of C content of the litter
                              a = 0.4, # % of C in litter that goes to POC
                              b = 0.3, # % of C in litter that goes to MOC
@@ -67,7 +67,7 @@ carbon_fraction <- function (LB = 1000 , # litter biomass
   LC  <- LB * C # total C in litter
   POC <- LC * a
   MOC <- LC * b
-  DOC <- LC * c + POC * d + MOC * e
+  DOC <- LC * (1-(a+b)) + POC * d + MOC * e
   MBC <- DOC * f
   leached <- DOC * g
   respired <- DOC * h

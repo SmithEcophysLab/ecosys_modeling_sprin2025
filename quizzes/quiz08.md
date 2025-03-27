@@ -1,8 +1,8 @@
 # Quiz 7
 
-1. Why is there a deficiency of large-scale models that can track carbon allocation?
+1. Why is there a deficiency of large-scale models that can effectively track carbon allocation?
 
-2. Explain Coordination theory with an example
+2. Explain Coordination theory of plant allocation with an example.
 
 3. What are the limitations of using fixed allocation approach and reaction norm to model carbon allocation?
 

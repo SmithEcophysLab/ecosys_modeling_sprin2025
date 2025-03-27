@@ -20,8 +20,6 @@
 		- where do you need help from nick?
 
 ## Homework
-- Read Stocker et al. (2024). The full citation and link can be found in the 
-[readings](../readings) folder.
 - Continue reading up on the processes for your module
 - Work on module development
 

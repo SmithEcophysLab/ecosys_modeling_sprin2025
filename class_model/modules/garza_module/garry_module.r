@@ -216,8 +216,8 @@ PAM3_a <- Fs_a / Fm_a # PhiD + PhiF
 ## PAM8_a <- PAM4_a./(1-PAM6_a); % kLake
 ## PAM9_a <- Fm_a./Fmp_a - 1; % NPQ
 
-results <- data.frame("PAR"       = PAR,        # PAR, umol PPFD m-2 s-1
-                      "Temp"      = Temp,       # Leaf temperature, C
+results <- data.frame("par0"      = par0,        # PAR, umol PPFD m-2 s-1
+                      "temp"      = temp,       # Leaf temperature, C
                       "CO2"       = CO2,        # Mesophyll CO2, ubar
                       "O2"        = O2,         # Atmospheric O2, mbar
                       "Q"         = Q,          # PPFD, mol PAR m-2 s-1

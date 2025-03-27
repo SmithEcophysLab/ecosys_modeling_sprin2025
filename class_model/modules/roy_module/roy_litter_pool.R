@@ -3,26 +3,29 @@
 #Author: Puja Roy
 ###################
 
-#I want to look at how the litter pool changes after drought in a particular
-#terrestrial ecosystem
-#To start with a simple form of function, I am taking plant green and brown
-# biomass as input and their fraction as output
+# I want to look at how the litter pool changes after drought in a particular
+# terrestrial ecosystem
+# Here, 
+# L= Litterfall biomass (g/m²)
+# Tmax = Maximum temperature (°C)
+# P = Precipitation (mm)
+# Vforest = Forest type factor 
+# Tavg = average temperature (°C)
+# a, b, c, and d are empirically derived constants and their units are g/m²/°C,
+# g/m²/mm, g/m²/°C, g/m² respectively
 
-## biomass: Given two numeric arguments gbm and lbm referring the mass of  
-## green biomass and litter biomass in gram
-##     Args:
-##       gbm and lbm = numeric argument 
-##     Returns:
-##      a numeric component representing the fraction of gbm and lbm
-
-biomass <- function(gbm = 200, lbm = 350){
-  fraction <- (gbm/lbm)
-  return(fraction)
+litterbio <- function(Tmax = 35, 
+                      P = 100,
+                      Tavg = 25, 
+                      Vforest = 1.5, 
+                      a = 0.5, 
+                      b = 0.2, 
+                      c = 0.3, 
+                      d = 10){
+  L <- ((a*Tmax+b*P)*Vforest+(c*Tavg)+d)
+  return(L)
 }
 
-# Example
-biomass()
-# [1] 0.5714286 #default
-biomass(400, 600)
-# [1] 0.6666667
-
+#example
+litterbio()
+# [1] 73.75

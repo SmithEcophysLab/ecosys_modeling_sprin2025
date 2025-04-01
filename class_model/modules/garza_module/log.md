@@ -12,3 +12,22 @@
   
     #model works..? I think 
     # get some unexpected results, or maybe I just need to understand the model better
+    
+### 3/27/25
+    
+    # deciding statsic or dynamic 
+    # it depends on absorbance cross sections, I think I will just use static
+    # model definitely works, interesitngly enough there is no temperature response!
+    # also looked into cytb6f density coefficients, will leave standard for now....
+    # next, I need to add P model Stuff!
+    
+### 3/31/25
+
+    # incorperating p model...
+    # Stocker, B. D., Wang, H., Smith, N. G., Harrison, S. P., Keenan, T. F., Sandoval, D., ...
+          &  Prentice, I. C. (2020). P-model v1. 0: An optimality-based light use efficiency model for 
+          simulating ecosystem gross primary production. Geoscientific Model Development, 13(3), 1545-1581.
+    # Place: testing with esm???
+    # Goal: test with p model
+    # need help with: if it doesn't work
+          

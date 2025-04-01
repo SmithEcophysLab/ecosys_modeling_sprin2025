@@ -1,16 +1,17 @@
 # log.md
 Weekly log file for tracking updates to kelley_module
 
-## 2025/03/25
+## 2025/04/01
 1. what is the current state of your module? Kyker-Snowman road map?
     - Assess process, looking at exisitng models + improving understanding of the process mechanisms
 
 2. what papers have you been reading to refine your module?
     - Mollier, A., de Willigen, P., Heinen, M., Morel, C., Schneider, A., & Pellerin, S. (2008). A two-dimensional simulation model of phosphorus uptake including crop growth and P-response. Ecological Modelling, 210(4), 453–464. 
+
     - Wang, Y. P., Law, R. M., & Pak, B. (2010). A global model of carbon, nitrogen and phosphorus cycles for the terrestrial biosphere. Biogeosciences, 7(7), 2261–2282. https://doi.org/10.5194/bg-7-2261-2010 
 
 3. what are your goals for the upcoming week?
-    - Improve the formulas going in, mainly just trying to understand what I is "ideal" to incorporate into my modual and how feasable that is for my level of skill.
+    - Improve the formulas going in, mainly just trying to understand what is "ideal" to incorporate and how feasable it is. 
 
 4. where do you need help from nick?
     - When is the best time to separate out functions/ calculations from your module. 

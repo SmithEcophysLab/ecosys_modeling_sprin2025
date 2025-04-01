@@ -32,5 +32,11 @@
     # Goal: test with p model
     # need help with: if it doesn't work
           
-=======
->>>>>>> 82e1878b9b94a2824de83608dcdf7380a843cb39
+### 4/1/25
+
+    # Pulled main into branch so I can work with class model
+    Place: testing with esm???
+    # Goal: test with p model
+    # need help with: Converting CO2/O2 pressure to mol!
+    #                 What is "m" and " m' "
+    

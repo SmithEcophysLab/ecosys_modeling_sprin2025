@@ -1,7 +1,7 @@
 #log.md
 #This is a log file for my weekly update on the model
 
-## 02.03.2025
+## 03.02.2025
 what is the current state of your module? where are you at in the Kyker-Snowman road map?
 -Test process alone part, specifically on building simple model
 
@@ -15,7 +15,7 @@ what are your goals for the upcoming week?
 where do you need help from nick?
 - defining parameters for the model
 
-## 23. 03. 2025
+## 03. 23. 2025
 what is the current state of your module? where are you at in the Kyker-Snowman road map?
 -Test process alone part, specifically on building simple model
 
@@ -28,3 +28,7 @@ what are your goals for the upcoming week?
 where do you need help from nick?
 - Need suggestions if the parameters that I set make sense or not
 
+## 04. 01. 2025
+I did not change anything from the last update, just read one new paper
+what papers have you been reading to refine your module?
+1. Adaptive significance of evergreen vs. deciduous leaves: solving the triple paradox

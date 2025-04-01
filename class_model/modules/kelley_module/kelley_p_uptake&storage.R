@@ -16,73 +16,91 @@
 ## likely outputs: pools within in plants, litter, soil, and microbial
 
 
-# Homework # 05 : --------------------------------------------------------------
-# Create a function for a simple process that you feel might be necessary for
-# your module within this R script
 
-## MRK 2024/02/24
-## using mostly arbitrary numbers and limited processes
+## V1: rough concept 2024/02/25 --------------------------------------
 
-kelley_module <- function (
-    # p influence 
-    temp_max = 25, # air temperature, influences plant nutrient uptake
-    plant_p = 10, # phosphorous amount in plants
-    atmo_n = 5, # influences phosphorous uptake and availability to plants
-    soil_texture = -5, # soil texture influences phosphorous availability
-    precipitation = -10, # general proxy for "weathering" right now
-    # p into system
-    soil_fertilizer_p = 20, # soil fertilization, agriculture 
-    soil_p_start = 20 # initial phosphorous in soil
-    ){
-  
-  # phosphorous in
-  p_in <- soil_p_start + soil_fertilizer_p # p into a system
-  
-  # phosphorous out
-  p_influence_neg <- soil_texture + precipitation # neg. influence P in systems
-  p_influence_pos <- atmo_n + temp_max # pos. influence P in systems
-  p_out <- plant_p * (p_influence_pos + p_influence_neg) # total influences
-  
-  # total p in system
-  total_p <- p_in - p_out # calculate total P
+# kelley_module_concept <- function (
+#     # p influence 
+#     temp_max = 25, # air temperature, influences plant nutrient uptake
+#     plant_p = 10, # phosphorous amount in plants
+#     atmo_n = 5, # influences phosphorous uptake and availability to plants
+#     soil_texture = -5, # soil texture influences phosphorous availability
+#     precipitation = -10, # general proxy for "weathering" right now
+#     # p into system
+#     soil_fertilizer_p = 20, # soil fertilization, agriculture 
+#     soil_p_start = 20 # initial phosphorous in soil
+#     ){
+#   
+#   # phosphorous in
+#   p_in <- soil_p_start + soil_fertilizer_p # p into a system
+#   
+#   # phosphorous out
+#   p_influence_neg <- soil_texture + precipitation # neg. influence P in systems
+#   p_influence_pos <- atmo_n + temp_max # pos. influence P in systems
+#   p_out <- plant_p * (p_influence_pos + p_influence_neg) # total influences
+#   
+#   # total p in system
+#   total_p <- p_in - p_out # calculate total P
+# 
+#   # output results
+#   results <- data.frame('temp_max' = temp_max,
+#                         'plant_p' = plant_p,
+#                         'atmospheric_n' = atmo_n,
+#                         'soil_p_start' = soil_p_start,
+#                         'soil_texture' = soil_texture,
+#                         'precipitation' = precipitation,
+#                         'soil_fertilizer_p' = soil_fertilizer_p,
+#                         'p_in' = p_in,
+#                         'p_out' = p_out,
+#                         'total_p_in_system' = total_p)
+#   results
+#   
+#   
+# }
 
+## V2: applied literature --------------------------------------
+
+kelley_module <- function (par0 = 400, # photo. active radiation µmol m-2 s-1
+                           temp_max = 25, # max air temp. during biomass 1 & 2
+                           temp_min = 5, # min air temp. during biomass 1 & 2
+                           tbase = 0, # temp. plants stop growing
+                           lai = 3, #leaf area index, range typically 0.5 - 5.0
+                           biomass1 = 10, # biomass measured start 1 g/m^2
+                           biomass2 = 50, # biomass measured, last g/m^2
+                           #doy_start = 80, # doy started growing (Spring), potential time range? 
+                           #doy_end = 263, # doy end growing (Fall), potential time range? 
+                           plant_p = 10, # phosphorous amount in plants
+                           #atmo_n = 5, # atmospheric N
+                           soil_texture = -5, # soil texture 
+                           soil_p_addition = 20, # P addition to soil (agriculture)
+                           soil_p_start = 20 # initial P in soil
+                           ){
+  
+  # conversions
+  par <- par0 * 0.0002176 # converts µmol m-2 s-1 to MJm-2 
+  
+  # sub-module 1) plant demand
+  ## MRK 03/28: messy, clean this up by using functions, add LAI + uptake
+  biomass_delta = biomass2 - biomass1 # biomass change over time
+  RUE = biomass_delta / par # radiation use efficiency
+  gdd = ((temp_max + temp_min)/2) - tbase # growing degree days
+  hungry_plants = (RUE * par) / gdd # total biomass increment rate
+
+  
+  # sub-module 2) phosphorous supply
+  ## MRK 03/31: needs work, Pi in soil, and P replenish rates? 
+  p_supply = soil_p_start + soil_p_addition - soil_texture
+
+  # sub-module 3) plant phosphorus uptake capability
+  ## MRK 03/31: needs work, roots? water? temp? 
+  total_p <- p_supply - (plant_p - hungry_plants) # calculate total P
+  
+  
   # output results
-  results <- data.frame('temp_max' = temp_max,
-                        'plant_p' = plant_p,
-                        'atmospheric_n' = atmo_n,
-                        'soil_p_start' = soil_p_start,
-                        'soil_texture' = soil_texture,
-                        'precipitation' = precipitation,
-                        'soil_fertilizer_p' = soil_fertilizer_p,
-                        'p_in' = p_in,
-                        'p_out' = p_out,
-                        'total_p_in_system' = total_p)
+  results <- data.frame('p_uptake_by_plants' = total_p)
+  
   results
   
   
 }
 
-
-
-# sources: ---------------------------------------------------------------------
-
-## specific models: CASACNP & CENTURY
-
-## 1
-# Wang, Y. P., Law, R. M., & Pak, B. (2010). A global model of carbon, nitrogen
-# and phosphorus cycles for the terrestrial biosphere. Biogeosciences, 7(7),
-# 2261–2282. https://doi.org/10.5194/bg-7-2261-2010
-
-## 2 
-# Radcliffe, D. E., Reid, D. K., Blombäck, K., Bolster, C. H., Collick, A. S.,
-# Easton, Z. M., Francesconi, W., Fuka, D. R., Johnsson, H., King, K., Larsbo,
-# M., Youssef, M. A., Mulkey, A. S., Nelson, N. O., Persson, K., Ramirez-Avila,
-# J. J., Schmieder, F., & Smith, D. R. (2015). Applicability of Models to
-# Predict Phosphorus Losses in Drained Fields: A Review. Journal of
-# Environmental Quality, 44(2), 614–628. https://doi.org/10.2134/jeq2014.05.0220
-
-## 3
-# https://swroc.cfans.umn.edu/research/soil-water/phosphorus-cycle
-
-## 4
-# https://www2.cgd.ucar.edu/vemap/abstracts/CENTURY.html 

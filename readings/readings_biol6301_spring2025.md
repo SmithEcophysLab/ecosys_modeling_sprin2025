@@ -69,18 +69,18 @@ NO READING
 NO READING
 
 ## March 25
+No reading
+
+## March 27
 Franklin O, Johansson J, Dewar RC, Dieckmann U, McMurtrie RE, Brännström Å, Dybzinski R (2012) 
 Modeling carbon allocation in trees: a search for principles. Tree Physiology, 32, 648–666.
 
-## March 27
-TBD
-
 ## April 1
-Stocker BD, Dong N, Perkowski EA et al. (2024) Empirical evidence and theoretical 
-understanding of ecosystem carbon and nitrogen cycle interactions. New Phytologist.
+No reading
 
 ## April 3
-TBD
+Stocker BD, Dong N, Perkowski EA et al. (2024) Empirical evidence and theoretical 
+understanding of ecosystem carbon and nitrogen cycle interactions. New Phytologist.
 
 ## April 8
 Bolker BM, Pacala SW, Parton Jr. WJ (1998) 

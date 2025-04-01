@@ -21,3 +21,61 @@
 # be transported through that network to other fungal species if they are cheating or
 # being parasitic. Soil organic matter is the largest pool of carbon that is formed
 # due to decomposition by protozoa, protists and bacteria.
+
+
+
+mycorrhizal_fungi_module <- function(carbon_fixed = 100,  # amount of carbon fixed by plants
+                                    fungal_transfer_rate = 0.2, # percentage of C transferred to mycorrhiza
+                                    fungal_biomass_rate = 0.7,  # percentage of C used to make fungal biomass
+                                    fungal_respiration_rate = 0.3) # percentage of C lost by hyphal respiration
+     {
+       # Amount of carbon transferred to fungi
+        C_to_fungi <- carbon_fixed * fungal_transfer_rate
+        
+       # Amount of carbon allocated to fungal biomass and respiration
+       C_to_fungal_biomass <- C_to_fungi * fungal_biomass_rate
+       C_respired <- C_to_fungi * fungal_respiration_rate
+      
+        results <- c(C_to_fungi,C_to_fungal_biomass,C_respired)
+        
+           return(results)
+         }
+
+results <- mycorrhizal_fungi_module()
+
+
+Active_N_uptake <- function(npp = 100, # net primary productivity
+                            Cplant = 0.5 , # whole plant carbon
+                            Nplant = 0.6 , # whole plant nitrogen 
+                            Croot = 0.3 , # total carbon in root biomass
+                            Nsoil=  0.9, # available soil nitrogen
+                            Camf= 0.2,   # total carbon directed in AMF biomass
+                            Cacq = 0.3, # carbon available to spend on nitrogen acquisition
+                            kN = 1, # parameter that controls the cost as a function of soil N
+                            kC= 1) # parameter that controls the cost as a function of root C
+{ 
+  # Plant Nitrogen demand 
+  Ndemand <-  npp/(Cplant/Nplant)
+  
+  # Carbon cost to acquire nutrients from roots
+  COSTact <- (kN/Nsoil) * (kC/Croot)
+  
+  # Plant Nitrogen uptake through roots
+  Nuptake <- Cacq/COSTact
+  
+  # Carbon cost to acquire nutrients from AMF
+  COSTamf <- (kN/Nsoil)*(kC/Camf)
+  
+  # Plant Nitrogen uptake through AMF
+  Nuptakeamf <- Cacq/COSTamf
+  
+  # Total N uptake
+  TotalN <- COSTact + COSTamf
+  
+  results <- c(Ndemand,COSTact, Nuptake, COSTamf, Nuptakeamf, TotalN)
+  
+  return(results)
+}
+
+
+

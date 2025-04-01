@@ -8,10 +8,11 @@
     # this model uses co2 and o2 in terms of pressure and I need to convert to ppm for use of the model
     
     
-### 3/6/2025
+### 3/24/2025
   
     #model works..? I think 
     # get some unexpected results, or maybe I just need to understand the model better
+<<<<<<< HEAD
     
 ### 3/27/25
     
@@ -31,3 +32,5 @@
     # Goal: test with p model
     # need help with: if it doesn't work
           
+=======
+>>>>>>> 82e1878b9b94a2824de83608dcdf7380a843cb39

@@ -42,8 +42,47 @@
 # simulate whether soil acts as carbon sink or source
 
 
+#############################################################
 
+# The function takes litter biomass, percentage of carbon in litter, 
+# proportion of carbon that goes to particulte organic carbon (POC),
+# proportion of C assimilated by microbes, and proportion of easily decomposable
+# POC as inputs. The calculates the labile and recalitrant carbon fraction based
+# the input provided and results the data frame with total litter carbon, labile
+# carbon and recalcitrant carbon sequestered in the soil.
+#
 
+carbon_fraction <- function (LB = 1000 , # litter biomass (both aboveground and belowground)
+                             C = 0.6, # % of C content of the litter
+                             a = 0.4, # % of C in litter that goes to POC
+                             b = 0.3, # % of C in litter that goes to MOC
+                             c = 0.2, # % of C in litter that goes to DOC
+                             d = 0.4, # POC to DOC conversion rate
+                             e = 0.3, # MOC to DOC conversion rate
+                             f = 0.2, # proportion of DOC in litter assimilated by microbes
+                             g = 0.2,  # % of DOC lost by leaching 
+                             h = 0.2) # % of DOC respired by microbes
+{
+  
+  LC  <- LB * C # total C in litter
+  POC <- LC * a
+  MOC <- LC * b
+  DOC <- LC * (1-(a+b)) + POC * d + MOC * e
+  MBC <- DOC * f
+  leached <- DOC * g
+  respired <- DOC * h
+  labile <- DOC - respired - leached
+  recalcitrant <-  (1-d) * POC + (1-e) * MOC
+  carbon_loss <- LC * (1-(a+b+c)) + respired
+  
+  result <- data.frame('litter_c' = LC,
+                       'labile_fraction' = labile,
+                       'microbial_carbon' =  MBC,
+                       "recal_frac" = recalcitrant,
+                       "CO2_release" = carbon_loss,
+                       'carbon_leached' = leached)
+  return(result)
+}
 
 
 

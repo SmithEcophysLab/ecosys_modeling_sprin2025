@@ -1,0 +1,48 @@
+---
+title: "log.md"
+author: "Snehanjana Chatterjee"
+date: "2025-03-04"
+output: html_document
+---
+
+```{r}
+# log.md 
+# This is a log file to manually enter weekly updates to the mycorrhizal fungi module
+
+## 03/04/2025
+
+## what is the current state of your module? - I am still getting familiar with the literature. So I have no made any changes to the previous function that we did in our last homework.
+
+## where are you at in the Kyker-Snowman road map?- I am on the "beginning to work with simple models" part.
+
+
+## what papers have you been reading to refine your module?- Braghiere et al., 2021 ; Brzostek et al., 2014 
+
+## what are your goals for the upcoming week? - narrow down important mathematical equations by reading more literature and compiling them into a document
+
+
+## where do you need help from nick? -no help needed right now
+
+
+
+## 03/25/2025
+
+## what is the current state of your module? - I made a lot of changes and figured out the equations for my module. I added random numbers for the function to run.
+
+## where are you at in the Kyker-Snowman road map?- I am on the "beginning to work with simple models" part.
+
+
+## what papers have you been reading to refine your module?- Braghiere et al., 2021 ; Brzostek et al., 2014 ; Fischer et al., 2010
+
+## what are your goals for the upcoming week? - I would write a function for each element such as Nsoil, Cplant, Nplant etc.
+
+
+## where do you need help from nick? - I need help understanding partitioning of how much carbon and nitrogen needs to be put as inputs in my function. 
+
+
+
+```
+
+
+
+

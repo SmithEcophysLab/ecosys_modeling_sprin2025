@@ -39,6 +39,25 @@ output: html_document
 
 ## where do you need help from nick? - I need help understanding partitioning of how much carbon and nitrogen needs to be put as inputs in my function. 
 
+## 04/01/2025
+
+## what is the current state of your module? - I added random number sequence to certain elements in the equation to see if the function is working.
+
+## where are you at in the Kyker-Snowman road map?- I am on the "Quantifying and driving simple model at increasing scale" part. Even though we are not incorporating data, we are making observations with random numbers.
+
+
+## what papers have you been reading to refine your module?- Braghiere et al., 2021 ; Brzostek et al., 2014 ; Fischer et al., 2010 
+
+## what are your goals for the upcoming week? - Refining my module more and see if I need to add anything else.
+
+
+## where do you need help from nick? - I need help understanding if my module looks good and if I need to add anything else to it.
+
+
+
+
+
+
 
 
 ```

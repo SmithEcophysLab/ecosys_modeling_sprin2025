@@ -6,6 +6,7 @@ library(R.utils)
 
 ## load functions
 source('kelley_p_uptake&storage.R')
+sourceDirectory('functions')
 
 ## run model 
 kelley_module()

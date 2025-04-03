@@ -56,7 +56,6 @@ carbon_fraction <- function (LB = 1000 , # litter biomass (both aboveground and 
                              C = 0.6, # % of C content of the litter
                              a = 0.4, # % of C in litter that goes to POC
                              b = 0.3, # % of C in litter that goes to MOC
-                             c = 0.2, # % of C in litter that goes to DOC
                              d = 0.4, # POC to DOC conversion rate
                              e = 0.3, # MOC to DOC conversion rate
                              f = 0.2, # proportion of DOC in litter assimilated by microbes
@@ -71,7 +70,7 @@ carbon_fraction <- function (LB = 1000 , # litter biomass (both aboveground and 
   MBC <- DOC * f
   leached <- DOC * g
   respired <- DOC * h
-  labile <- DOC - respired - leached
+  labile <- DOC - respired - leached # assumption: 100% MBC goes back to DOC
   recalcitrant <-  (1-d) * POC + (1-e) * MOC
   carbon_loss <- LC * (1-(a+b+c)) + respired
   

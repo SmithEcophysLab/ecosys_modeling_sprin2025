@@ -40,7 +40,22 @@ Help from Dr. Smith
 i will probably need help from Dr. Smith to pick/modify the equations as per my need.
 
 
+## April 1, 2025
 
+current state of the module:
+
+I am still reviewing literature to understand the influence of the environmental drivers on soil carbon pools. I have created a simple model with fixed values for the parameters. Now, i have started modifying the model by incorporating the ecosystem processes and environmental drivers' effect. 
+
+Papers I read:
+
+Wieder, W. R., Grandy, A. S., Kallenbach, C. M., Taylor, P. G., & Bonan, G. B. (2015). Representing life in the Earth system with soil microbial functional traits in the MIMICS model. Geoscientific Model Development, 8(6), 1789-1808.
+
+goals for the upcoming week:
+
+I will continue looking for the specific equations and parameters values needed for the module. I will create a few more wrapper functions to represent major soil processes in the model.
+
+Help from Dr. Smith
+i will probably need help from Dr. Smith to pick/modify the equations as per my need.
 
 
 

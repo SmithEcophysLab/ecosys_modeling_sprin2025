@@ -22,7 +22,7 @@
 # being parasitic. Soil organic matter is the largest pool of carbon that is formed
 # due to decomposition by protozoa, protists and bacteria.
 
-
+library(R.utils)
 
 mycorrhizal_fungi_module <- function(carbon_fixed = 100,  # amount of carbon fixed by plants
                                     fungal_transfer_rate = 0.2, # percentage of C transferred to mycorrhiza
@@ -77,5 +77,11 @@ Active_N_uptake <- function(npp = 100, # net primary productivity
   return(results)
 }
 
+Active_N_uptake()
 
+# adding random sequence to test the function
+
+Active_N_uptake(npp = seq(0, 2000, 500))
+
+Active_N_uptake(Camf= seq(0, 5, 0.5))
 

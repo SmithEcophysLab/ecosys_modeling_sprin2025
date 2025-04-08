@@ -1,6 +1,19 @@
 # log.md
 Weekly log file for tracking updates to kelley_module
 
+## 2025/04/08
+1. Sensitivity analysis
+    - Variables: Tested 2 variabels "soil pH" and "root length" to see how it influences phoshorous (P) uptake of plants. 
+    - Results: Soil pH apparently has no effect on P uptake, which I think might be because a formula is wrong somewhere. On the other hand with increasing root length there is increased phosphorus uptake in plants.
+    - figure pH: https://github.com/SmithEcophysLab/ecosys_modeling_sprin2025/blob/kelley_branch/class_model/modules/kelley_module/figures/kelley_plot_pH2.png
+    - figure root length: https://github.com/SmithEcophysLab/ecosys_modeling_sprin2025/blob/kelley_branch/class_model/modules/kelley_module/figures/kelley_plot_rootlength2.png 
+
+2. Current papers
+    - Reichert, T., Rammig, A., Papastefanou, P., Lugli, L. F., Darela Filho, J. P., Gregor, K., Fuchslueger, L., Quesada, C. A., & Fleischer, K. (2023). Modeling the carbon costs of plant phosphorus acquisition in Amazonian forests. Ecological Modelling, 485. https://doi.org/10.1016/j.ecolmodel.2023.110491
+    - Mollier, A., de Willigen, P., Heinen, M., Morel, C., Schneider, A., & Pellerin, S. (2008). A two-dimensional simulation model of phosphorus uptake including crop growth and P-response. Ecological Modelling, 210(4), 453–464. 
+    - Wang, Y. P., Law, R. M., & Pak, B. (2010). A global model of carbon, nitrogen and phosphorus cycles for the terrestrial biosphere. Biogeosciences, 7(7), 2261–2282. https://doi.org/10.5194/bg-7-2261-2010 
+
+
 ## 2025/04/01
 1. what is the current state of your module? Kyker-Snowman road map?
     - Assess process, looking at exisitng models + improving understanding of the process mechanisms

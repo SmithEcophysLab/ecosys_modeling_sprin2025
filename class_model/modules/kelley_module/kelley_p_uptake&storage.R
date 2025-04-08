@@ -4,6 +4,9 @@
 ## date: 2025/02/18
 ################################################################################
 
+# notes ------------------------------------------------------------------------
+## APPLEPIE = part of modle that likely too advanced for class, deals w/ time
+
 # description: -----------------------------------------------------------------
 ## Module to depict phosphorus uptake and storage within a system (too broad?). 
 ## Goal is to try and model how much P is likely stored within pools, e.g., 
@@ -35,7 +38,7 @@
 #   p_in <- soil_p_start + soil_fertilizer_p # p into a system
 #   
 #   # phosphorous out
-#   p_influence_neg <- soil_texture + precipitation # neg. influence P in systems
+#   p_influence_neg <- soil_texture + precipitation # neg. influence P in
 #   p_influence_pos <- atmo_n + temp_max # pos. influence P in systems
 #   p_out <- plant_p * (p_influence_pos + p_influence_neg) # total influences
 #   
@@ -58,49 +61,125 @@
 #   
 # }
 
-## V2: applied literature --------------------------------------
+## V2: applied literature ------------------------------------------------------
 
-kelley_module <- function (par0 = 400, # photo. active radiation µmol m-2 s-1
-                           temp_max = 25, # max air temp. during biomass 1 & 2
-                           temp_min = 5, # min air temp. during biomass 1 & 2
-                           tbase = 0, # temp. plants stop growing
-                           lai = 3, #leaf area index, range typically 0.5 - 5.0
-                           biomass1 = 10, # biomass measured start 1 g/m^2
-                           biomass2 = 50, # biomass measured, last g/m^2
-                           #doy_start = 80, # doy started growing (Spring), potential time range? 
-                           #doy_end = 263, # doy end growing (Fall), potential time range? 
-                           plant_p = 10, # phosphorous amount in plants
-                           #atmo_n = 5, # atmospheric N
-                           soil_texture = -5, # soil texture 
-                           soil_p_addition = 20, # P addition to soil (agriculture)
-                           soil_p_start = 20 # initial P in soil
-                           ){
+kelley_module <- function (
+   
+  ## parameters for "APPLEPIE" section
+   # par0 = 400, # photo. active radiation µmol m-2 s-1
+    # temp_max = 25, # max air temp. during biomass 1 & 2
+    # temp_min = 5, # min air temp. during biomass 1 & 2
+    # tbase = 0, # temp. plants stop growing for region
+    # biomass_delta = 10, # biomass change over time g/m^2
+    
+    # plant inputs (want to add LAI if possible)
+    litterfall = 800,  # yearly litterfall production (kgCha-1yr-1)
+    RE = 0.7, #resorption efficiency, 70% of P (global average ~65%)
+    root_length = 0.5, # root length within a soil cm/cm3
+    
+    # specific demand, biomass (kgPha-1yr-1)
+    biomass_canopy = 1000, 
+    biomass_wood = 1500,
+    biomass_roots = 800, 
+    
+    # C:P stoichiometry (C to P ratio)
+    s_canopy = 350,
+    s_wood = 500,
+    s_roots = 400,
+    
+    # phosphorous available/ pools (kg ha-1)
+    pool_pi_sol = 3.0, # soluble Pi
+    pool_po = 3.0, # soluble Po
+    pool_pi_insol = 100, # insoluble Pi
+    
+    # weathering - temp + precip will affect availability, use pH approach?
+    # temp_max = , 
+    # temp_min = ,
+    # precipitation = ,
+    
+    # soil influences
+    pH_soil = 7
+    
+    ){
   
-  # conversions
-  par <- par0 * 0.0002176 # converts µmol m-2 s-1 to MJm-2 
+  # conversions ---------
+  # par <- par0 * 0.0002176 # converts µmol m-2 s-1 to MJm-2 # APPLEPIE
   
-  # sub-module 1) plant demand
-  ## MRK 03/28: messy, clean this up by using functions, add LAI + uptake
-  biomass_delta = biomass2 - biomass1 # biomass change over time
-  RUE = biomass_delta / par # radiation use efficiency
-  gdd = ((temp_max + temp_min)/2) - tbase # growing degree days
-  hungry_plants = (RUE * par) / gdd # total biomass increment rate
+  
+  # sub-module 1) plant P demand ---------
+  ## APPLEPIE
+  ## mrk: depends on difference in time, likely not within scope of class.
+  # RUE = biomass_delta / par # radiation use efficiency
+  # gdd = ((temp_max + temp_min) / 2) - tbase # growing degree days
+  # GWnew = (RUE * par) / gdd # total biomass increment rate(gbiomassm-2(Cd°)-1)
+  
+  ## P demand by plant component (kgPha-1yr-1) 
+  Pdemand_canopy = biomass_canopy / s_canopy
+  Pdemand_wood = biomass_wood / s_wood
+  Pdemand_roots = biomass_roots / s_roots
+  Pdemand_total = Pdemand_canopy + Pdemand_wood + Pdemand_roots
+  
+  ## P resorption (kgPha-1yr-1)
+  Presorption_canopy = ((litterfall / s_canopy ) * RE)
+  Presorption_wood = ((litterfall / s_wood ) * RE)
+  Presorption_roots = ((litterfall / s_roots ) * RE)
+  Presorption_total =  Presorption_canopy + Presorption_wood +  Presorption_roots
 
   
-  # sub-module 2) phosphorous supply
-  ## MRK 03/31: needs work, Pi in soil, and P replenish rates? 
-  p_supply = soil_p_start + soil_p_addition - soil_texture
+  # sub-module 2) phosphorous supply ---------
+  ## adjusting P availability based on pH
+  # pH_mod = if (pH_soil >= 6 & pH_soil <= 7) { 1 # neutral pH, P fully available 
+  # } else { if (pH_soil < 6) { 0.5 # acidic pH, P reduce availability
+  #   } else { 0.5 # alkaline soils, P reduce availability
+  #   }
+  # }
 
-  # sub-module 3) plant phosphorus uptake capability
-  ## MRK 03/31: needs work, roots? water? temp? 
-  total_p <- p_supply - (plant_p - hungry_plants) # calculate total P
+  ## updated pH modification, allows for "seq" run in testing (internet thanks!)
+  pH_mod <- ifelse(pH_soil >= 6 & pH_soil <= 7, 1, 0.5) 
   
+  
+  ## applying pH modifications
+  pool_pi_sol_pH = pool_pi_sol * pH_mod
+  pool_po_sol_pH = pool_po * pH_mod
+  pool_pi_insol_pH = pool_pi_insol * pH_mod
+  
+  # sub-module 3) plant phosphorus uptake capability ---------
+  β = 0.3 # P uptake through roots + AMF (Reichert et al., 2023)
+  ## root capacity to access P changes w/ length
+  AccessP = 1 - exp(-β * root_length)
+  
+  ## P uptake from different pools.
+  total_Ppools = pool_pi_sol_pH + pool_po_sol_pH + pool_pi_insol_pH
+  
+  pool_acess_pi_sol = (pool_pi_sol_pH * (Pdemand_total / total_Ppools)) * AccessP
+  pool_acess_po_sol = (pool_po_sol_pH * (Pdemand_total / total_Ppools)) * AccessP
+  pool_acess_pi_insol = (pool_pi_insol_pH * (Pdemand_total / total_Ppools)) * AccessP
+  
+  pool_access_total = pool_acess_pi_sol + pool_acess_po_sol + pool_acess_pi_insol
+  
+
+  ## final results
+  p_uptake_by_plants = pool_access_total + Presorption_total # P uptake plants
+  
+  # remaining pool values
+  remaining_pool_pi_sol = pool_pi_sol_pH - pool_acess_pi_sol
+  remaining_pool_po_sol = pool_po_sol_pH - pool_acess_po_sol
+  remaining_pool_pi_insol = pool_pi_insol_pH - pool_acess_pi_insol
+  
+
   
   # output results
-  results <- data.frame('p_uptake_by_plants' = total_p)
-  
-  results
-  
-  
+  results <- data.frame('p_uptake_by_plants' = p_uptake_by_plants,
+                        'remaining_pool_pi_sol' = remaining_pool_pi_sol,
+                        'remaining_pool_po_sol' = remaining_pool_po_sol,
+                        'remaining_pool_pi_insol' = remaining_pool_pi_insol,
+                        'pH_soil' = pH_soil,
+                        'root_length' = root_length)
+  return(results)
 }
+
+
+
+
+
 

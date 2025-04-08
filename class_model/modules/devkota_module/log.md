@@ -58,5 +58,9 @@ Help from Dr. Smith
 i will probably need help from Dr. Smith to pick/modify the equations as per my need.
 
 
+## April 8
 
+Sensitivity analysis revealed that labile, recalcitrant, and microbial carbon pool have a positive relation to amount of litter biomass. The slope of the regression line is highest for recalcitrant carbon pool and lowest for the microbial carbon, indicating that recalcitrant pool is more sensitive to litter biomass while microbial carbon is least sensitive. 
+
+Similarly, labile carbon pool is negatively correlated to the respired carbon, and is highly sensitive to respired carbon loss. recalcitrant carbon pool, and microbial carbon doesn't seem to be sensitive to respired carbon.
 

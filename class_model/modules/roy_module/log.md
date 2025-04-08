@@ -32,3 +32,10 @@ where do you need help from nick?
 I did not change anything from the last update, just read one new paper
 what papers have you been reading to refine your module?
 1. Adaptive significance of evergreen vs. deciduous leaves: solving the triple paradox
+
+## 04. 08. 2025
+I changed two parameters of my model, v=average temperature and precipitation. I used at least 200 inputs. For both case my
+model is showing that litter biomass increase with average temperature and precipitation. Within the roy_module folder I saved two
+figures of the graph that obtained from the test. Both are showing straight line. 
+I want to discuss with Dr. Smith if the way I am running my model is correct or not, I have some constant and adjuster in my model, I
+am not sure if I should keep them or use them like the way I used it for the sensitivity analysis.

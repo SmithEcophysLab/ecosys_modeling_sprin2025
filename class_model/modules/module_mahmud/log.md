@@ -7,7 +7,11 @@ output:
 
 This is a log file for manually entering weekly updates to the module.
 
-## 2025-03-25
+## 2025-04-08
+
+- Updated the model and performed sensitivity analysis
+- This model is most sensitive to initial carbon stock, meaning at higher intial crabon stock/biomass the effect of moisture loss rate and vpd is more prominent (see Figure 1 and Figure 2)
+
 
 ### What is the current state of your module?  
 Updated the model, now the model is very simple

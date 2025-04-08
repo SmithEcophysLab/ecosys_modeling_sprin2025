@@ -53,9 +53,17 @@ output: html_document
 
 ## where do you need help from nick? - I need help understanding if my module looks good and if I need to add anything else to it.
 
+## 04/08/2025
 
+## what is the current state of your module? - I added sequences to 2 inputs in the equation and made ggplots to see if it supports my equation.
 
+## where are you at in the Kyker-Snowman road map?- I am on the "Quantifying and driving simple model at increasing scale" part. 
 
+## what papers have you been reading to refine your module?- Braghiere et al., 2021 ; Brzostek et al., 2014 ; Fischer et al., 2010 
+
+## what are your goals for the upcoming week? - I will try to incorporate "npp" from class model because my module has npp too.
+
+## where do you need help from nick? - I need help incorporating npp from class module into my module.
 
 
 

@@ -72,7 +72,21 @@ Active_N_uptake <- function(npp = 100, # net primary productivity
   # Total N uptake
   TotalN <- COSTact + COSTamf
   
-  results <- c(Ndemand,COSTact, Nuptake, COSTamf, Nuptakeamf, TotalN)
+  results <- data.frame("npp" = npp,
+                        "Cplant" = Cplant,
+                        "Nplant" = Nplant,
+                        "Croot" = Croot,
+                        "Nsoil" = Nsoil,
+                        "Camf" = Camf,
+                        "Cacq"= Cacq,
+                        "kN"= kN,
+                        "kC"= kC,
+                        "Ndemand"= Ndemand,
+                        "COSTact" = COSTact, 
+                        "Nuptake" = Nuptake, 
+                        "COSTamf" = COSTamf, 
+                        "Nuptakeamf" = Nuptakeamf, 
+                        "TotalN" = TotalN)
   
   return(results)
 }
@@ -81,7 +95,7 @@ Active_N_uptake()
 
 # adding random sequence to test the function
 
-Active_N_uptake(npp = seq(0, 2000, 500))
+Active_N_uptake(npp = seq(0, 2000, 100))
 
 Active_N_uptake(Camf= seq(0, 5, 0.5))
 

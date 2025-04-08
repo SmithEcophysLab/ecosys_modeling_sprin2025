@@ -23,8 +23,7 @@ plot_rootlength <-
   geom_line( color = "brown", size = 2) +
   labs(title = "Effect of Root Length on Phosphorus Uptake", 
        x = expression("Root Length Average in Soil (cm/cm"^3*")"), 
-       y = "Phosphorus Uptake (kg/ha/year)") +
-  theme_minimal()
+       y = "Phosphorus Uptake (kg/ha/year)")
 
 
 ## pH P uptake by plants
@@ -34,8 +33,7 @@ plot_pH <-
   labs(title = "Effect of pH on Phosphorus Uptake", 
        x = "Soil pH", 
        y = "Phosphorus Uptake (kg/ha/year)") +
-  scale_x_continuous(breaks = seq(1, 14, by = 1)) +
-  theme_minimal()
+  scale_x_continuous(breaks = seq(1, 14, by = 1))
 
 
 
@@ -72,13 +70,13 @@ ggplot(modeled_pH_soil, aes (x = pH_soil, y = remaining_pool_pi_insol)) +
 
 ## saving images ---------------------------------------------------------------
 
-## mrk - add save to a specific folder later
-# ggsave(plot_rootlength, 
-#        filename = "kelley_plot_rootlength.png", 
+# mrk - add save to a specific folder later
+# ggsave(plot_rootlength,
+#        filename = "kelley_plot_rootlength2.png",
 #        device = "png",
 #        height = 6, width = 9, units = "in")
 # 
-# ggsave(plot_pH, 
-#        filename = "kelley_plot_pH.png", 
+# ggsave(plot_pH,
+#        filename = "kelley_plot_pH2.png",
 #        device = "png",
 #        height = 6, width = 9, units = "in")

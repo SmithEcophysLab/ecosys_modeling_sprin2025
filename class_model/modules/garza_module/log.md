@@ -40,3 +40,9 @@
     # need help with: Converting CO2/O2 pressure to mol!
     #                 What is "m" and " m' "
     
+    
+### 4/8/25
+
+    #i got stuck with the sensitivity analysis
+    #couldnt get to graph
+    

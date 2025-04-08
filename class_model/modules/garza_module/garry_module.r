@@ -13,7 +13,7 @@
 ### First step is to transcribe risa's model
 
 garry_module <- function(par0 = 400, ### Photosynthetically Active Radiation (umol PPFD m-2 s-1)
-                         temp = 25, ###  Temperature (°C)
+                         temperature = 25, ###  Temperature (°C)
                          CO2 = 200, ### Mesophyll CO2, ubar
                          O2 = 209, ### Atmospheric O2, mbar
                          Abs = 0.85, ### Total leaf absorptance to PAR, mol PPFD absorbed mol-1 PPFD incident
@@ -32,7 +32,7 @@ garry_module <- function(par0 = 400, ### Photosynthetically Active Radiation (um
 ### Environmental variables 
 
 Q <- par0 / 1e6      # Photosynthetically Active Radiation (PPFD, mol PAR m-2 s-1)
-Tc <- temp / 1e6    # Leaf temperature, degrees C
+Tc <- temperature / 1e6    # Leaf temperature, degrees C
 C <- CO2 / 1e6      # Partial pressure of CO2 in chloroplast, bar
 O <- O2 / 1e3       # Partial pressure of O2 in chloroplast, bar
 
@@ -217,7 +217,7 @@ PAM3_a <- Fs_a / Fm_a # PhiD + PhiF
 ## PAM9_a <- Fm_a./Fmp_a - 1; % NPQ
 
 results <- data.frame("par0"      = par0,        # PAR, umol PPFD m-2 s-1
-                      "temp"      = temp,       # Leaf temperature, C
+                      "temperature"      = temperature,       # Leaf temperature, C
                       "CO2"       = CO2,        # Mesophyll CO2, ubar
                       "O2"        = O2,         # Atmospheric O2, mbar
                       "Q"         = Q,          # PPFD, mol PAR m-2 s-1
@@ -279,53 +279,5 @@ results <- data.frame("par0"      = par0,        # PAR, umol PPFD m-2 s-1
 
 return(results)
 
-}
-
-# Symbolic solution for optimal absorption cross-sections
-solve_xcs <- function(Abs, CB6F, Kd, Kf, Kp2, Ku2, Q, eta, kq, phi1P_max){
-  
-  xcs <- (-sqrt((Kd + Kf + Ku2) * (CB6F^2 * Kd^3 * kq^2 * phi1P_max^2 + CB6F^2 * Kf^3 * kq^2 * phi1P_max^2 + 
-                                     CB6F^2 * Kd * Kp2^2 * eta^2 * kq^2 + CB6F^2 * Kf * Kp2^2 * eta^2 * kq^2 + 
-                                     CB6F^2 * Kp2^2 * Ku2 * eta^2 * kq^2 + CB6F^2 * Kd * Kf^2 * kq^2 * 
-                                     phi1P_max^2 * 3.0 + CB6F^2 * Kd^2 * Kf * kq^2 * phi1P_max^2 * 3.0 + 
-                                     CB6F^2 * Kd * Kp2^2 * kq^2 * phi1P_max^2 + CB6F^2 * Kd^2 * Kp2 * kq^2 * 
-                                     phi1P_max^2 * 2.0 + CB6F^2 * Kf * Kp2^2 * kq^2 * phi1P_max^2 + CB6F^2 * 
-                                     Kf^2 * Kp2 * kq^2 * phi1P_max^2 * 2.0 + CB6F^2 * Kd^2 * Ku2 * kq^2 * 
-                                     phi1P_max^2 + CB6F^2 * Kf^2 * Ku2 * kq^2 * phi1P_max^2 + CB6F^2 * Kp2^2 * 
-                                     Ku2 * kq^2 * phi1P_max^2 + Abs^2 * Kd * Kp2^2 * Q^2 * eta^2 * phi1P_max^2 + 
-                                     Abs^2 * Kf * Kp2^2 * Q^2 * eta^2 * phi1P_max^2 + Abs^2 * Kp2^2 * Ku2 * 
-                                     Q^2 * eta^2 * phi1P_max^2 + CB6F^2 * Kd * Kf * Kp2 * kq^2 * phi1P_max^2 * 
-                                     4.0 + CB6F^2 * Kd * Kf * Ku2 * kq^2 * phi1P_max^2 * 2.0 + CB6F^2 * Kd * 
-                                     Kp2 * Ku2 * kq^2 * phi1P_max^2 * 2.0 + CB6F^2 * Kf * Kp2 * Ku2 * kq^2 * 
-                                     phi1P_max^2 * 2.0 + CB6F^2 * Kd * Kp2^2 * eta * kq^2 * phi1P_max * 2.0 + 
-                                     CB6F^2 * Kd^2 * Kp2 * eta * kq^2 * phi1P_max * 2.0 + CB6F^2 * Kf * 
-                                     Kp2^2 * eta * kq^2 * phi1P_max * 2.0 + CB6F^2 * Kf^2 * Kp2 * eta * kq^2 * 
-                                     phi1P_max * 2.0 + CB6F^2 * Kp2^2 * Ku2 * eta * kq^2 * phi1P_max * 2.0 + 
-                                     CB6F^2 * Kd * Kf * Kp2 * eta * kq^2 * phi1P_max * 4.0 + CB6F^2 * Kd * 
-                                     Kp2 * Ku2 * eta * kq^2 * phi1P_max * 2.0 + CB6F^2 * Kf * Kp2 * Ku2 * eta * 
-                                     kq^2 * phi1P_max * 2.0 + Abs * CB6F * Kd * Kp2^2 * Q * eta * kq * 
-                                     phi1P_max^2 * 2.0 + Abs * CB6F * Kd * Kp2^2 * Q * eta^2 * kq * phi1P_max * 
-                                     2.0 + Abs * CB6F * Kd^2 * Kp2 * Q * eta * kq * phi1P_max^2 * 2.0 + Abs * 
-                                     CB6F * Kf * Kp2^2 * Q * eta * kq * phi1P_max^2 * 2.0 + Abs * CB6F * Kf * 
-                                     Kp2^2 * Q * eta^2 * kq * phi1P_max * 2.0 + Abs * CB6F * Kf^2 * Kp2 * Q * 
-                                     eta * kq * phi1P_max^2 * 2.0-Abs * CB6F * Kp2^2 * Ku2 * Q * eta * kq * 
-                                     phi1P_max^2 * 2.0 + Abs * CB6F * Kp2^2 * Ku2 * Q * eta^2 * kq * 
-                                     phi1P_max * 2.0 + Abs * CB6F * Kd * Kf * Kp2 * Q * eta * kq * 
-                                     phi1P_max^2 * 4.0 + Abs * CB6F * Kd * Kp2 * Ku2 * Q * eta * kq * 
-                                     phi1P_max^2 * 2.0 + Abs * CB6F * Kf * Kp2 * Ku2 * Q * eta * kq * 
-                                     phi1P_max^2 * 2.0)) + 
-            (CB6F * Kd^2 * kq * phi1P_max + CB6F * Kf^2 * kq * phi1P_max + Abs * Kd^2 * Q * phi1P_max^2 * 2.0 + 
-               Abs * Kf^2 * Q * phi1P_max^2 * 2.0 + CB6F * Kd * Kp2 * eta * kq + CB6F * Kf * Kp2 * eta * kq + 
-               CB6F * Kp2 * Ku2 * eta * kq + CB6F * Kd * Kf * kq * phi1P_max * 2.0 + CB6F * Kd * Kp2 * kq * 
-               phi1P_max + CB6F * Kf * Kp2 * kq * phi1P_max + CB6F * Kd * Ku2 * kq * phi1P_max + CB6F * Kf * 
-               Ku2 * kq * phi1P_max + CB6F * Kp2 * Ku2 * kq * phi1P_max + Abs * Kd * Kf * Q * phi1P_max^2 * 
-               4.0 + Abs * Kd * Kp2 * Q * phi1P_max^2 * 2.0 + Abs * Kf * Kp2 * Q * phi1P_max^2 * 2.0 + Abs * 
-               Kd * Ku2 * Q * phi1P_max^2 * 2.0 + Abs * Kf * Ku2 * Q * phi1P_max^2 * 2.0 + Abs * Kd * Kp2 * Q * 
-               eta * phi1P_max + Abs * Kf * Kp2 * Q * eta * phi1P_max + Abs * Kp2 * Ku2 * Q * eta * phi1P_max)) / 
-    (Q * phi1P_max * (Kd^2 * phi1P_max + Kf^2 * phi1P_max + Kd * Kp2 * eta + Kf * Kp2 * eta + Kp2 * 
-                        Ku2 * eta + Kd * Kf * phi1P_max * 2.0 + Kd * Kp2 * phi1P_max + Kf * Kp2 * 
-                        phi1P_max + Kd * Ku2 * phi1P_max + Kf * Ku2 * phi1P_max) * 2.0)
-  
-  return(xcs)
 }
 

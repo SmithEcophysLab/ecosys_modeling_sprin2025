@@ -74,55 +74,76 @@ li_under <- function(i0 = 1000,  # Incident light at the top of the canopy (µmo
 # Note: This formula is used in models like LPJ-DGVM and ED2
 ###############################################################################
 
-plant_competition <- function (TB = 100, # Total biomass assimilated through photosynthesis
-                               C = 0.7, # % of carbon (C) content in TB
-                               N = 0.1, # % of nitrogen (N) content in TB
-                               P = 0.1, # % of phosphorus (P) content in TB
-                               K = 0.1, # % of potassium (K) content in TB
-                               rc = 0.3, # % of C transferred to roots 
-                               rn = 0.1, # % of N transferred to roots 
-                               rp = 0.1, # % of P transferred to roots 
-                               rk = 0.1, # % of K transferred to roots 
-                               lc = 0.5, # % of C transferred to leaves 
-                               ln = 0.2, # % of N transferred to leaves
-                               lp = 0.1, # % of P transferred to leaves 
-                               lk = 0.1, # % of K transferred to leaves 
-                               sc = 0.8, # % of C transferred to stems 
-                               sn = 0.1, # % of N transferred to stems 
-                               sp = 0.2, # % of P transferred to stems 
-                               sk = 0.2, # % of K transferred to stems 
-                               Re = 0.3) # % of C lost through respiration
-{
-  TN <- TB * C * N * P * K # Total nutrient (TN) content in the TB 
-  RB <- TN * rc * rn * rp * rk # TN content in the root biomass (RB)
-  LB <- TN * lc * ln * lp * lk # TN content in the leaf biomass (LB)
-  SB <- TN * sc * sn * sp * sk # TN content in the stem biomass (SB)
-  LOC <- TB * C * Re # Total C lost (LOC) through respiration  
+plant_competition <- function(TB = 100, # Total biomass (g)
+                              C = 0.7, 
+                              N = 0.1, 
+                              P = 0.1, 
+                              K = 0.1,  # % C, N, P, K in biomass
+                              env_type = "moderate", # "dry", "moderate", "wet"
+                              light_lvl = "medium" # "low", "medium", "high"
+) {
+  # Water competition
+  w_params <- switch(env_type,
+                     dry = list(rc = 0.6, rn = 0.2, rp = 0.1, rk = 0.7,
+                                lc = 0.2, ln = 0.5, lp = 0.2, lk = 0.1,
+                                sc = 0.2, sn = 0.3, sp = 0.7, sk = 0.2,
+                                Re = 0.4),
+                     moderate = list(rc = 0.3, rn = 0.3, rp = 0.2, rk = 0.2,
+                                     lc = 0.5, ln = 0.5, lp = 0.3, lk = 0.3,
+                                     sc = 0.2, sn = 0.2, sp = 0.5, sk = 0.5,
+                                     Re = 0.3),
+                     wet = list(rc = 0.1, rn = 0.1, rp = 0.1, rk = 0.1,
+                                lc = 0.6, ln = 0.7, lp = 0.2, lk = 0.1,
+                                sc = 0.3, sn = 0.2, sp = 0.7, sk = 0.1,
+                                Re = 0.2)
+  )
   
-  result <- data.frame("total_nutrient_content" = TN,
-                       "root_nutrient_content" = RB,
-                       "leaf_nutrient_content" = LB,
-                       "stem_nutrient_content" = SB,
-                       "Carbon_released" = LOC)
-  return(result)
+  # Light competition
+  l_params <- switch(light_lvl,
+                     low = list(lc = 1.3, sc = 1.5, rc = 0.7),
+                     medium = list(lc = 1.0, sc = 1.0, rc = 1.0),
+                     high = list(lc = 0.8, sc = 0.7, rc = 1.2)
+  )
+  
+  # C adjustments to organs after light competition
+  w_params$rc <- w_params$rc * l_params$rc
+  w_params$lc <- w_params$lc * l_params$lc
+  w_params$sc <- w_params$sc * l_params$sc
+  
+  # Calculate total remain C based on the input of biomass 
+  total_C <- TB * C                 # C assimilated from photosynthesis
+  lost_C <- total_C * w_params$Re   # Carbon lost to respiration
+  remaining_C <- total_C - lost_C   # Carbon available for growth
+  
+  # Calculate the adjust C after light competition 
+  TC <- w_params$rc + w_params$lc + w_params$sc
+  RC <- remaining_C * (w_params$rc / TC)
+  LC <- remaining_C * (w_params$lc / TC)
+  SC <- remaining_C * (w_params$sc / TC)
+  
+  # Calculate nutrient content in organs based on both water and light competition
+  RB <- RC * w_params$rn * w_params$rp * w_params$rk  # Root nutrients
+  LB <- LC * w_params$ln * w_params$lp * w_params$lk  # Leaf nutrients
+  SB <- SC * w_params$sn * w_params$sp * w_params$sk  # Stem nutrients
+  
+  # Total nutrient content (sum of all organs)
+  TN <- RB + LB + SB
+  
+  # Return results
+  data.frame(
+    environment = env_type,
+    light = light_lvl,
+    total_nutrient_content = TN,
+    root_nutrient_content = RB,
+    leaf_nutrient_content = LB,
+    stem_nutrient_content = SB,
+    C_released = lost_C,
+    C_allocated_to_roots = RC,
+    C_allocated_to_leaves = LC,
+    C_allocated_to_stems = SC,
+    total_C_allocated = RC + LC + SC  # Should equal remaining_C
+  )
 }
   
-
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-                               
-                               
-
-
-

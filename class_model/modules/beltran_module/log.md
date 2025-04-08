@@ -85,6 +85,25 @@ IV) Test process with ESM (coming)
    -Addressing me to key literature based on my gaps. 
 
 
+## 04_08_2025
+Results of the sensitivity analysis:
+
+- Evaluated inputs:
+1) Total Biomass (TB) (g) – continuous input, increases from 300 to 800 g
+2) Environmental Type (env_type) – categorical input with "dry", "moderate", and "wet" levels
+
+All tests were run with constant nutrient values (N = P = K = 0.1), C is fixed at 0.7 (i.e., 70% of biomass is carbon), and fixed light level (light_lvl = "high").
+
+For each environment (dry, moderate, wet), the model was run with increasing total biomass values. The resulting carbon allocation to roots, leaves, and stems was plotted against TB.
+
+i) In dry environments, carbon allocation is mainly to roots, consistent with water-limited conditions.
+
+ii) In moderate environments, allocation is more distributed to leaves and roots that to stems.
+
+iii) In wet environments, the model shifts investment to leaves and stems, consistent with shoot-dominated growth when water is abundant.
+
+
+
 ## Upcoming updates
 This is the section for upcoming updates, disregard until filled.
 

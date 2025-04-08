@@ -5,7 +5,8 @@ Weekly log file for tracking updates to kelley_module
 1. Sensitivity analysis
     - Variables: Tested 2 variabels "soil pH" and "root length" to see how it influences phoshorous (P) uptake of plants. 
     - Results: Soil pH apparently has no effect on P uptake, which I think might be because a formula is wrong somewhere. On the other hand with increasing root length there is increased phosphorus uptake in plants.
-    - Figures: [class_model/modules/kelley_module/figures ](https://github.com/SmithEcophysLab/ecosys_modeling_sprin2025/tree/kelley_branch/class_model/modules/kelley_module/figures)
+    - figure pH: https://github.com/SmithEcophysLab/ecosys_modeling_sprin2025/blob/kelley_branch/class_model/modules/kelley_module/figures/kelley_plot_pH2.png
+    - figure root length: https://github.com/SmithEcophysLab/ecosys_modeling_sprin2025/blob/kelley_branch/class_model/modules/kelley_module/figures/kelley_plot_rootlength2.png 
 
 2. Current papers
     - Reichert, T., Rammig, A., Papastefanou, P., Lugli, L. F., Darela Filho, J. P., Gregor, K., Fuchslueger, L., Quesada, C. A., & Fleischer, K. (2023). Modeling the carbon costs of plant phosphorus acquisition in Amazonian forests. Ecological Modelling, 485. https://doi.org/10.1016/j.ecolmodel.2023.110491

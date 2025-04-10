@@ -1,4 +1,4 @@
-# Quiz 9
+# Quiz 10
 
 1. The Bolker paper simplified the original CENTURY model by focusing on its linear 
 components. What are the benefits and potential limitations of simplifying the complex models?

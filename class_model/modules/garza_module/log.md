@@ -46,3 +46,11 @@
     #i got stuck with the sensitivity analysis
     #couldnt get to graph
     
+
+### 4/13/25 
+
+    # The main thing i need to fix is the units between the cytb6f model 
+      the class model
+    # mainly want to look at the CO2 and O2 units
+    # I want to find which inputs affect the outputs of Aj
+    

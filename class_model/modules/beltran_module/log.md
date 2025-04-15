@@ -103,63 +103,16 @@ ii) In moderate environments, allocation is more distributed to leaves and roots
 iii) In wet environments, the model shifts investment to leaves and stems, consistent with shoot-dominated growth when water is abundant.
 
 
+## 04_14_2025
+By reviewing the class model, I have found that it is possible to use the GPP output as the input carbon to my plant_competition model. This is because the plant_competition() function already includes its own respiration calculation, meaning that NPP (which already accounts for respiration) should not be used to avoid double-counting carbon loss. 
 
-## Upcoming updates
-This is the section for upcoming updates, disregard until filled.
+First: adjust units as I will use gC/day and GPP is given in umol m-2 s-1. 
 
-1. what is the current state of your module?
-2. where are you at in the Kyker-Snowman road map?
-i) Assess process and potential impact: 
-- light competition
-  - Does the process behave consistently through space and time?
-  - Is the process included in a ESM already?
-  - Is the process likely to impact climate on ESM-relevant space and time scales?
+Unit conversion: 
+gpp gC/day = gpp * (12.01g/1e6umol) * 86400s/day
 
-- nutrient competition
-  - Does the process behave consistently through space and time?
-  - Is the process included in a ESM already?
-  - Is the process likely to impact climate on ESM-relevant space and time scales?
+Second: estimated TB based on GPP
+Carbon (C) will be taken as the same input of the class model, therefore TB is:
+Calculated as TB = gpp/C
 
-- water competition
-  - Does the process behave consistently through space and time?
-  - Is the process included in a ESM already?
-  - Is the process likely to impact climate on ESM-relevant space and time scales?
-
-ii) Test process alone 
-- light competition
-  - Build simple model and explore if it explains observed patterns.
-  - Gather data to quantify and drive simple model at increasing scales.
-
-- nutrient competition
-  - Build simple model and explore if it explains observed patterns.
-  - Gather data to quantify and drive simple model at increasing scales.
-
-- water competition
-  - Build simple model and explore if it explains observed patterns.
-  - Gather data to quantify and drive simple model at increasing scales.
-
-IV) Test process with ESM
-- light competition
-  - Connect simple model to biogeochemical cycles and process already in an ESM
-  - Scale modeled process globally and evaluate its performance across multiple regions.
-  - Compare new existing approaches; assess changes in global simulation.
-
-- nutrient competition 
-  - Connect simple model to biogeochemical cycles and process already in an ESM
-  - Scale modeled process globally and evaluate its performance across multiple regions.
-  - Compare new existing approaches; assess changes in global simulation.
-
-- water competition 
-  - Connect simple model to biogeochemical cycles and process already in an ESM
-  - Scale modeled process globally and evaluate its performance across multiple regions.
-  - Compare new existing approaches; assess changes in global simulation.
-
-3. what papers have you been reading to refine your module?
-- general 
-
-- light competition
-- nutrient competition
-- water competition
-
-4. what are your goals for the upcoming week?
-5. where do you need help from nick?
+My module needs to develop the supply/demand for nutrients to incorporate the nutrient competition. As an additional adjustment I will try to set water availability proxy as soil moisture that represents a continuous variable.

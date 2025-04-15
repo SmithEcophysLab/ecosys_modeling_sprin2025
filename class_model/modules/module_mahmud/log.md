@@ -1,33 +1,17 @@
 ---
 output:
-  word_document: default
+  pdf_document: default
   html_document: default
+  word_document: default
 ---
 # log.md
 
 This is a log file for manually entering weekly updates to the module.
 
-## 2025-04-08
+## 2025-04-15
 
-- Updated the model and performed sensitivity analysis
-- This model is most sensitive to initial carbon stock, meaning at higher intial crabon stock/biomass the effect of moisture loss rate and vpd is more prominent (see Figure 1 and Figure 2)
+### Describe a plan for linking your module to the class model in your log.md file under a heading with today's date.
+- The FRCC model will use inputs from the class model, specifically npp and vpd. The FRCC model will then adjusts npp based on fire occurrence. The only additional input the FRCC model needs is the moisture loss rate, which is not part of the class model. I could add one more step after line 49 in class_model.R and before the results. This step would only modify npp, while everything else remains unchanged.
 
-
-### What is the current state of your module?  
-Updated the model, now the model is very simple
-
-#### Where are you at in the Kyker-Snowman road map?  
-I am at identifying and understanding the process.  
-
-### What papers have you been reading to refine your module?  
-- Pausas (2022) Pyrogeography across the western Palaearctic: A diversity of fire regimes.
-- Akihiko (2005) Modelling of carbon cycle and fire regime in an east Siberian larch forest.
-- Incorporating recent findings from our lab works into the model and Wyse et al. (2018) works
- 
-
-### What are your goals for the upcoming week?  
-- To determine whether the fire occcurence is deterministic or stocastic in the model.
-
-
-### Where do you need help from Nick?  
-- To set up the growth rate and how to incorporate it with the carbon stock over years
+### Describe the module development work you still need to complete for the final project.
+- I fixed an error of my model. I used avearge value of biomass at across vpd and moisture loss rate. That's why the model output was showing that the highest amount of biomass loss would occur if the moisture loss rate is intermediate level. I could update the model to calculate the amount of debris/detritusafter fire and the amount of CO2 will be released to atmosphere.  

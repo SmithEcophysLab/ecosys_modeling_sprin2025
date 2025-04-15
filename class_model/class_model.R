@@ -15,7 +15,18 @@ class_model <- function(fapar = 0.5, # realized quantum efficiency of electron t
                         beta = 240, # cost of nutrients relative to water (Wang et al., 2017)
                         c = 0.41, # cost of jmax (Wang et al., 2017)
                         rgpp_ratio = 0.47, # ratio of plant respiration to gpp (Waring)
-                        rnpp_ratio = 0.5 # ratio of npp lost from ecosystem respiration
+                        rnpp_ratio = 0.5, # ratio of npp lost from ecosystem respiration
+                        Cplant = 0.5 , # whole plant carbon
+                        Nplant = 0.6 , # whole plant nitrogen 
+                        Croot = 0.3 , # total carbon in root biomass
+                        Nsoil=  0.9, # available soil nitrogen
+                        Camf= 0.2,   # total carbon directed in AMF biomass
+                        Cacq = 0.3, # carbon available to spend on nitrogen acquisition
+                        kN = 1, # parameter that controls the cost as a function of soil N
+                        kC= 1,
+                        env_type = "moderate", # "dry", "moderate", "wet"
+                        light_lvl = "medium", # "low", "medium", "high"
+                        moisture_loss_rate = 0.2
                         ){
   
   # conversions
@@ -48,6 +59,68 @@ class_model <- function(fapar = 0.5, # realized quantum efficiency of electron t
   reco <- rnpp_ratio * npp
   nep <- npp - reco # net ecosystem productivity (gC m-2 d-1)
   
+  ## n uptake (snehanjana)
+  # Plant Nitrogen demand 
+  Ndemand <-  npp/(Cplant/Nplant)
+  
+  # Carbon cost to acquire nutrients from roots
+  COSTact <- (kN/Nsoil) * (kC/Croot)
+  
+  # Plant Nitrogen uptake through roots
+  Nuptake <- Cacq/COSTact
+  
+  # Carbon cost to acquire nutrients from AMF
+  COSTamf <- (kN/Nsoil)*(kC/Camf)
+  
+  # Plant Nitrogen uptake through AMF
+  Nuptakeamf <- Cacq/COSTamf
+  
+  # Total N uptake
+  TotalN <- COSTact + COSTamf
+  
+  ## npp allocation (Isa)
+  w_params <- switch(env_type,
+                     dry = list(rc = 0.6, rn = 0.2, rp = 0.1, rk = 0.7,
+                                lc = 0.2, ln = 0.5, lp = 0.2, lk = 0.1,
+                                sc = 0.2, sn = 0.3, sp = 0.7, sk = 0.2,
+                                Re = 0.4),
+                     moderate = list(rc = 0.3, rn = 0.3, rp = 0.2, rk = 0.2,
+                                     lc = 0.5, ln = 0.5, lp = 0.3, lk = 0.3,
+                                     sc = 0.2, sn = 0.2, sp = 0.5, sk = 0.5,
+                                     Re = 0.3),
+                     wet = list(rc = 0.1, rn = 0.1, rp = 0.1, rk = 0.1,
+                                lc = 0.6, ln = 0.7, lp = 0.2, lk = 0.1,
+                                sc = 0.3, sn = 0.2, sp = 0.7, sk = 0.1,
+                                Re = 0.2)
+  )
+  
+  # Light competition
+  l_params <- switch(light_lvl,
+                     low = list(lc = 1.3, sc = 1.5, rc = 0.7),
+                     medium = list(lc = 1.0, sc = 1.0, rc = 1.0),
+                     high = list(lc = 0.8, sc = 0.7, rc = 1.2)
+  )
+  
+  # C adjustments to organs after light competition
+  rc <- w_params$rc * l_params$rc
+  lc <- w_params$lc * l_params$lc
+  sc <- w_params$sc * l_params$sc
+  
+  npp_root <- rc * npp
+  npp_stem <- sc * npp
+  npp_leaf <- lc * npp
+  
+  ## fire probability (azaj)
+  vpd_normalized <- vpd / 5 # normalized the vpd
+  ignition_probability <- moisture_loss_rate * vpd_normalized
+  fire_occurs <- rbinom(1, 1, ignition_probability) # weighted probability of fire occurence
+  if (fire_occurs == 1) {
+    biomass_loss <- (1 - moisture_loss_rate) 
+    npp_postfire <- npp * (1 - biomass_loss)
+  }else{
+    biomass_loss <- 0
+    npp_postfire <- npp
+    }
   
   # output results
   results <- data.frame('par0' = par0,
@@ -79,7 +152,36 @@ class_model <- function(fapar = 0.5, # realized quantum efficiency of electron t
                         'gpp' = gpp,
                         'rplant' = rplant,
                         'npp' = npp,
-                        'reco' = reco)
+                        'reco' = reco,
+                        "Cplant" = Cplant,
+                        "Nplant" = Nplant,
+                        "Croot" = Croot,
+                        "Nsoil" = Nsoil,
+                        "Camf" = Camf,
+                        "Cacq"= Cacq,
+                        "kN"= kN,
+                        "kC"= kC,
+                        "Ndemand"= Ndemand,
+                        "COSTact" = COSTact, 
+                        "Nuptake" = Nuptake, 
+                        "COSTamf" = COSTamf, 
+                        "Nuptakeamf" = Nuptakeamf, 
+                        "TotalN" = TotalN,
+                        'environment' = env_type,
+                        'light' = light_lvl,
+                        'rc' = rc,
+                        'sc' = sc,
+                        'lc' = lc,
+                        'npp_root' = npp_root,
+                        'npp_stem' = npp_stem,
+                        'npp_leaf' = npp_leaf,
+                        'vpd_normalized' = vpd_normalized,
+                        'moisture_loss_rate'= moisture_loss_rate,
+                        'ignition_probability' = ignition_probability,
+                        'fire_occurs' = fire_occurs,
+                        'biomass_loss' = biomass_loss,
+                        'npp_postfire' = npp_postfire
+                        )
 
   results
   

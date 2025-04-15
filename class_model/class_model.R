@@ -3,7 +3,9 @@
 ## note that the 'functions' directory may need to be sourced to run all code
 
 class_model <- function(fapar = 0.5, # realized quantum efficiency of electron transport
-                        phi0 = 0.05, # quantum yield
+                        a_l = 0.8, #leaf absorptance
+                        b_l = 0.5, #fraction absorbed light that reaches psII
+                        #phi0 = 0.05, # quantum yield
                         par0 = 400, # photosynthetically active radiation at sea level (µmol m-2 s-1)
                         z = 0, #elevation (m)
                         temperature = 25, # temperature (°C)
@@ -32,6 +34,7 @@ class_model <- function(fapar = 0.5, # realized quantum efficiency of electron t
   chi <- squiggle / (squiggle + sqrt(vpd*1000)) # ratio of inter to intra cellular co2
   
   ## gpp
+  phi0 <- ((a_l * b_l) / 4) * (0.352 + 0.022 * temperature - 0.00034 * (temperature^2))
   ci = chi * ca # intercellular CO2 (Pa)
   m <- (ci - gammastar) / (ci +2*gammastar) # co2 limitation of photosynthesis (unitless)
   m_prime <- sqrt(1-((c/m)^(2/3)))
@@ -47,9 +50,10 @@ class_model <- function(fapar = 0.5, # realized quantum efficiency of electron t
   
   
   # output results
-  results <- data.frame('phi0' = phi0,
-                        'par0' = par0,
+  results <- data.frame('par0' = par0,
                         'fapar' = fapar,
+                        'a_l' = a_l,
+                        'b_l' = b_l,
                         'z' = z,
                         'temperature' = temperature,
                         'vpd0' = vpd0,
@@ -69,6 +73,7 @@ class_model <- function(fapar = 0.5, # realized quantum efficiency of electron t
                         'squiggle' = squiggle,
                         'chi' = chi,
                         'ci' = ci,
+                        'phi0' = phi0,
                         'm' = m,
                         'm_prime' = m,
                         'gpp' = gpp,

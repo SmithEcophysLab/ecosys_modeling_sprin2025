@@ -12,3 +12,4 @@ sourceDirectory('functions')
 class_model()
 
 class_model(par0 = seq(0, 2000, 500))
+class_model(temperature = seq(5, 45, 5))

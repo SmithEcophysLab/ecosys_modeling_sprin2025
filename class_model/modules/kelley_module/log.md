@@ -1,6 +1,14 @@
 # log.md
 Weekly log file for tracking updates to kelley_module
 
+## 2025/04/14
+1. Plan for linking kelley module to class module
+    - Potentially modifying gpp, by phosphorous availablity modifying plant health (e.g. leaf area, ability to photosynthesize, size). Unfortunately my module doesn't yet consider these metrics. Possible linkage with Isa's module with root biomass/ length. 
+
+2. Module development work that needs to be completed for final project. 
+    - Need/ want: More plant variables such as, leaf area, LAI, plant size.
+    - Bonus: Climate variables, such as temperature and precipiation.
+
 ## 2025/04/08
 1. Sensitivity analysis
     - Variables: Tested 2 variabels "soil pH" and "root length" to see how it influences phoshorous (P) uptake of plants. 

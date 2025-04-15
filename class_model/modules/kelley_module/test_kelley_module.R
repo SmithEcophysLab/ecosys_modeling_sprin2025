@@ -13,3 +13,7 @@ kelley_module()
 
 kelley_module(root_length = seq(0.1, 1, by = 0.1))
 kelley_module(pH_soil = seq(1, 14, by = 0.5))
+
+
+
+testing_ph <- kelley_module(pH_soil = seq(1, 14, by = 0.5))

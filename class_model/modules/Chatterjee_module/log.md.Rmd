@@ -65,8 +65,18 @@ output: html_document
 
 ## where do you need help from nick? - I need help incorporating npp from class module into my module.
 
+## 04/15/25
 
+## Closely examine the code for the class model
+## Describe a plan for linking your module to the class model in your log.md file under a heading with today's date.
 
+## The class model's output has npp in it & my my module has npp as an input. So I am going to use the output from class model in my module.
+
+## Describe the module development work you still need to complete for the final project.
+
+## I have no further changes to add to my module.
+
+## Push your log file changes and submit a pull request
 
 ```
 

@@ -23,6 +23,7 @@
 # due to decomposition by protozoa, protists and bacteria.
 
 library(R.utils)
+sourceDirectory('functions', modifiedOnly = FALSE)
 
 mycorrhizal_fungi_module <- function(carbon_fixed = 100,  # amount of carbon fixed by plants
                                     fungal_transfer_rate = 0.2, # percentage of C transferred to mycorrhiza
@@ -42,6 +43,10 @@ mycorrhizal_fungi_module <- function(carbon_fixed = 100,  # amount of carbon fix
          }
 
 results <- mycorrhizal_fungi_module()
+
+install.packages("rpmodel")
+library("rpmodel")
+
 
 
 Active_N_uptake <- function(npp = 100, # net primary productivity
@@ -92,6 +97,20 @@ Active_N_uptake <- function(npp = 100, # net primary productivity
 }
 
 Active_N_uptake()
+
+
+
+carbon_results <- class_model()
+npp_value <- carbon_results$npp
+
+
+
+
+
+
+
+
+
 
 # adding random sequence to test the function
 

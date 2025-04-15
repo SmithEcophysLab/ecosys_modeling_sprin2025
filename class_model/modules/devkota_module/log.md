@@ -64,3 +64,11 @@ Sensitivity analysis revealed that labile, recalcitrant, and microbial carbon po
 
 Similarly, labile carbon pool is negatively correlated to the respired carbon, and is highly sensitive to respired carbon loss. recalcitrant carbon pool, and microbial carbon doesn't seem to be sensitive to respired carbon.
 
+## April 15
+
+The NPP from the class model can used to estimate the total litter amount (potentially combined with Pooja's module). My module take Litter biomass as z major input and predict the contribution to each carbon pool under different environmental condition. My module also take temperature as an input, which can be liked to the class module's temperature input.
+
+I am working on integrating the environmental drivers (temperature, and moisture) and their influence to carbon partitioning to the model. I will will still need to adjust the model by incorporating the effects of microbes, and soil properties like clay before completing the final project.
+
+
+

@@ -39,3 +39,8 @@ model is showing that litter biomass increase with average temperature and preci
 figures of the graph that obtained from the test. Both are showing straight line. 
 I want to discuss with Dr. Smith if the way I am running my model is correct or not, I have some constant and adjuster in my model, I
 am not sure if I should keep them or use them like the way I used it for the sensitivity analysis.
+
+## 04. 15. 2025
+The class model will create a data frame which contains temperature and NPP. As my model predict the fraction of NPP that convert into
+litter and the main variable for this is temperature and precipitation, may be I can use that NPP and temperature as my input.
+But there are some changes in the basis of my model, which are not yet sorted, so it is not sure yet how exactly I will use the class model.

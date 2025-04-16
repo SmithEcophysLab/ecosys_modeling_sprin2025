@@ -44,3 +44,6 @@ am not sure if I should keep them or use them like the way I used it for the sen
 The class model will create a data frame which contains temperature and NPP. As my model predict the fraction of NPP that convert into
 litter and the main variable for this is temperature and precipitation, may be I can use that NPP and temperature as my input.
 But there are some changes in the basis of my model, which are not yet sorted, so it is not sure yet how exactly I will use the class model.
+
+## 04.16. 2025
+I changed my model equation, now it is able to calculate the fraction of NPP that will turn into litter biomass based on average temperature and mean annual precipitation. It now can use the NPP from class model. Need suggestions for verifying the model. 

@@ -12,7 +12,7 @@ source('kelley_p_uptake&storage.R')
 
 # run model, multiple sequences ------------------------------------------------
 modeled_root_length <- kelley_module(root_length = seq(0.1, 1, by = 0.1))
-modeled_pH_soil <- kelley_module(pH_soil = seq(1, 14, by = 0.5))
+modeled_soil_ph <- kelley_module(soil_ph = seq(1, 14, by = 0.5))
 
 
 # figures from model -----------------------------------------------------------
@@ -28,7 +28,7 @@ plot_rootlength <-
 
 ## pH P uptake by plants
 plot_pH <- 
-  ggplot(modeled_pH_soil, aes (x = pH_soil, y = p_uptake_by_plants)) +
+  ggplot(modeled_soil_ph, aes (x = soil_ph, y = p_uptake_by_plants)) +
   geom_line(color = "#071f35", size = 2) +
   labs(title = "Effect of pH on Phosphorus Uptake", 
        x = "Soil pH", 
@@ -36,38 +36,37 @@ plot_pH <-
   scale_x_continuous(breaks = seq(1, 14, by = 1))
 
 
-
 ### add the pools later
-
-## pH influence on remaining pi soluble pool
-plot_pi_sol <- ggplot(modeled_pH_soil, 
-                      aes (x = pH_soil, y = pool_pi_sol_after)) +
-  geom_line(color = "pink", size = 2) +
-  labs(title = "Effect of pH on Remaining Pool of Soluble Inorganic P", 
-       x = "Soil pH", 
-       y = expression("Soluble Inorganic P Pool (kg ha"^{-1}*")")) +
-  scale_x_continuous(breaks = seq(1, 14, by = 1))
-
-## pH influence on remaining po soluble pool
-plot_po <- ggplot(modeled_pH_soil, aes (x = pH_soil, y = pool_po_after)) +
-  geom_line(color = "lightblue", size = 2) +
-  labs(title = "Effect of pH on Remaining Pool of Soluble Organic P", 
-       x = "Soil pH", 
-       y = expression("Soluble Organic P Pool (kg ha"^{-1}*")")) +
-  scale_x_continuous(breaks = seq(1, 14, by = 1))
-
-## pH influence on remaining pi insoluble pool
-plot_pi_insol <- ggplot(modeled_pH_soil, 
-                        aes (x = pH_soil, y = pool_pi_insol_after)) +
-  geom_line(color = "darkred", size = 2) +
-  labs(title = "Effect of pH on Remaining Pool of Insoluable Inorganic P", 
-       x = "Soil pH", 
-       y = expression("Insoluable Inorganic P (kg ha"^{-1}*")")) +
-  scale_x_continuous(breaks = seq(1, 14, by = 1))
-
-
-## combining the soil plots together
-combined_soil_plots <- plot_pi_sol + plot_pi_insol + plot_po
+# 
+# ## pH influence on remaining pi soluble pool
+# plot_pi_sol <- ggplot(modeled_soil_ph, 
+#                       aes (x = soil_ph, y = pool_pi_sol_after)) +
+#   geom_line(color = "pink", size = 2) +
+#   labs(title = "Effect of pH on Remaining Pool of Soluble Inorganic P", 
+#        x = "Soil pH", 
+#        y = expression("Soluble Inorganic P Pool (kg ha"^{-1}*")")) +
+#   scale_x_continuous(breaks = seq(1, 14, by = 1))
+# 
+# ## pH influence on remaining po soluble pool
+# plot_po <- ggplot(modeled_soil_ph, aes (x = soil_ph, y = pool_po_after)) +
+#   geom_line(color = "lightblue", size = 2) +
+#   labs(title = "Effect of pH on Remaining Pool of Soluble Organic P", 
+#        x = "Soil pH", 
+#        y = expression("Soluble Organic P Pool (kg ha"^{-1}*")")) +
+#   scale_x_continuous(breaks = seq(1, 14, by = 1))
+# 
+# ## pH influence on remaining pi insoluble pool
+# plot_pi_insol <- ggplot(modeled_soil_ph, 
+#                         aes (x = soil_ph, y = pool_pi_insol_after)) +
+#   geom_line(color = "darkred", size = 2) +
+#   labs(title = "Effect of pH on Remaining Pool of Insoluable Inorganic P", 
+#        x = "Soil pH", 
+#        y = expression("Insoluable Inorganic P (kg ha"^{-1}*")")) +
+#   scale_x_continuous(breaks = seq(1, 14, by = 1))
+# 
+# 
+# ## combining the soil plots together
+# combined_soil_plots <- plot_pi_sol + plot_pi_insol + plot_po
 
 ## saving images ---------------------------------------------------------------
 

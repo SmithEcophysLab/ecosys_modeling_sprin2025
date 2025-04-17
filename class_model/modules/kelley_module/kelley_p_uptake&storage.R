@@ -4,143 +4,143 @@
 ## date: 2025/02/18
 ################################################################################
 
-# notes ------------------------------------------------------------------------
-## APPLEPIE = part of model that likely too advanced for class, deals w/ time
-## removed APPLEPIE on 04/14/2025 for clarity. 
-
-## next time - remember to keep things lowercase, pain w/ the "H" in "pH"
-
 # description: -----------------------------------------------------------------
-## Module to depict phosphorus uptake and storage within a system (too broad?). 
+## Module to depict phosphorus uptake and storage within a system
 ## Goal is to try and model how much P is likely stored within pools, e.g., 
-## plant biomass (leaf, root, wood), litter, and within soil. 
+## plant biomass (leaf, root, wood), litter, and within soil. How P moves
+## moves through a system.
 
 
 # inputs and outputs: ----------------------------------------------------------
 ## MRK: likely inputs and outputs
-## inputs: fertilizer application, dust deposition, and weathering
-## likely outputs: pools within in plants, litter, soil, and microbial
+
+## INPUTS: litterfall, resorption efficiency of P, root length density in soil
+## C:P stoichiometry, phosphorous available pools. 
+
+## OUTPUTS: remaining P pools, phosphorous uptake by plants (roots)
 
 
 ## model  ----------------------------------------------------------------------
 
 kelley_module <- function (
     
-    # plant inputs (want to add LAI if possible)
-    litterfall = 800,  # yearly litterfall production (kgCha-1yr-1)
-    RE = 0.7, #resorption efficiency, 70% of P (global average ~65%)
-    root_length = 0.5, # root length within a soil cm/cm3
+    # plant inputs
+    litterfall = 800,  # yearly litterfall production (kg C ha-1yr-1)
+    resorp_efficiency = 0.7, # resorption efficiency, of P (global average ~65%)
+    root_length = 0.5, # root length density in soil "chunk" 
+    # (cm roots per cm3 of soil(cm/cm3))
     
-    # specific demand, biomass (kgPha-1yr-1)
+    # biomass P demand (kg P ha-1yr-1)
     ## demand estimate of total P acquired from soil to maintain biomass 
-    ## production yearly, P demand = total P take up 
+    ## production yearly
     biomass_canopy = 1000, 
     biomass_wood = 1500,
     biomass_roots = 800, 
     
     # C:P stoichiometry (C to P ratio, unitless!)
-    s_canopy = 350,
-    s_wood = 500, 
-    s_roots = 400,
+    ## higher C:P ratio = more P resorption (needs more P its its life)
+    ## lower C:P ratio = less P resorption (doesn't need as much P)
+    cp_ratio_canopy = 350,
+    cp_ratio_wood = 500, 
+    cp_ratio_roots = 400,
     
-    # phosphorous available/ pools (kg ha-1)
-    pool_pi_sol = 30, # soluble Pi
-    pool_po = 50, # soluble Po
-    pool_pi_insol = 100, # insoluble Pi
-    
-    # weathering - temp + precip. will affect availability, use pH approach?
-    # temp_max = , 
-    # temp_min = ,
-    # precipitation = ,
+    # phosphorous available/ the 3 main pools (kg ha-1)
+    pool_pi_soluable = 30, # soluble Pi (immediately ready for plants, small #)
+    pool_po_soluble = 50, # soluble Po (mineralization required convert to Pi)
+    pool_pi_insoluble = 100, # insoluble Pi (very very slowly available)
     
     # soil influences
-    pH_soil = 7
+    ## pH modifies the mobility/ availability of P in soil for plant uptake
+    soil_ph = 7
     
     ){
   
   
   # sub-module 1) plant P demand -----------------------------------------------
   
-  ## P demand by plant component (kgPha-1yr-1)
-  ## Total P = sum of the demand of different components of biomass production 
-  ## (canopy, wood, roots) w/ considering stoichiometry values, and subtract
-  ## P reabsorbed (maybe just from the canopy?)
-  Pdemand_canopy = biomass_canopy / s_canopy
-  Pdemand_wood = biomass_wood / s_wood
-  Pdemand_roots = biomass_roots / s_roots
-  Pdemand_total = Pdemand_canopy + Pdemand_wood + Pdemand_roots
+  ## P demand by plant component (kg P ha-1yr-1)
+  ### how much P is in the biomass = how much P is needed for biomass
+  p_demand_canopy = biomass_canopy / cp_ratio_canopy
+  p_demand_wood = biomass_wood / cp_ratio_wood
+  p_demand_roots = biomass_roots / cp_ratio_roots
+  p_demand_total = p_demand_canopy + p_demand_wood + p_demand_roots
   
-  ## P resorption (kgPha-1yr-1)
-  Presorption_canopy = ((litterfall / s_canopy ) * RE)
-  Presorption_wood = ((litterfall / s_wood ) * RE)
-  Presorption_roots = ((litterfall / s_roots ) * RE)
-  Presorption_total =  Presorption_canopy + Presorption_wood + Presorption_roots
+  ## P resorption (kg P ha-1yr-1)
+  ### How much P is retained in the plant before litter falls, modifies
+  ### overall demand of plants. Resorption more = less demand overall. 
+  p_resorp_canopy = ((litterfall / cp_ratio_canopy ) * resorp_efficiency)
+  p_resorp_wood = ((litterfall / cp_ratio_wood ) * resorp_efficiency)
+  p_resorp_roots = ((litterfall / cp_ratio_roots ) * resorp_efficiency)
+  p_resorption_total =  p_resorp_canopy + p_resorp_wood + p_resorp_roots
 
   
-  # sub-module 2) phosphorous supply -------------------------------------------
-  ## updated pH modification, allows for "seq" run in testing
-  ## pH modified phosphorous P pools availability in soil. Acidic pH (low pH)
-  ## tied up w/ iron & aluminum oxides. Alkaline pH (high pH) bind w/ calcium. 
-  pH_mod <- ifelse(pH_soil >= 6 & pH_soil <= 8, 0.5, 1) 
+  # sub-module 2) plant phosphorus uptake capability ---------------------------
   
-  ## MRK 04/14/2025 swapped pH values to achieve curve.. but wrong biologically
-  ## the pH mod needs to be on the pools, and less available 1 - 6, 8 - 14. 
-  
-  
-  # sub-module 3) plant phosphorus uptake capability ---------------------------
-  beta = 0.3 # P uptake through roots + AMF (Reichert et al., 2023)
+  ## beta = P uptake through roots + AMF (Reichert et al., 2023)
+  beta = 0.3 
   
   ## root capacity to access P changes w/ root length. Proxy for soil
-  ## exploration capacity (AccessP = accessibility of P)
-  AccessP = 1 - exp(-beta * root_length)
+  ### exploration capacity. Diminishing return based on the root length, 
+  ### short = more, long = less. (Reichert et al., 2023)
+  access_of_roots= 1 - exp(-beta * root_length)
   
+  
+  # sub-module 3) phosphorous supply -------------------------------------------
+ 
+  ## pH modifies P pools availability in soil. Low & High pH = less available
+  pH_mod <- ifelse(soil_ph >= 6 & soil_ph <= 8, 0.5, 1) 
+
   ## P uptake from different pools.
-  total_Ppools = pool_pi_sol + pool_po + pool_pi_insol
-  total_Ppools = (total_Ppools) * pH_mod # adding pH modification to soils
+  p_pool_total = pool_pi_soluable + pool_po_soluble + pool_pi_insoluble
+  p_pool_total = (p_pool_total) * pH_mod # adding pH modification to soils
   
-  pool_acess_pi_sol = (pool_pi_sol * (Pdemand_total / total_Ppools)) * AccessP
-  pool_acess_po_sol = (pool_po * (Pdemand_total / total_Ppools)) * AccessP
-  pool_acess_pi_insol = (pool_pi_insol * (Pdemand_total / total_Ppools)) * AccessP
   
-  # total pool access availability
+  # sub-module 4) calculations -------------------------------------------------
+  
+  ## How much P plants need (demand) and how much P is accessible to plants
+  pool_acess_pi_sol = (pool_pi_soluable * 
+                         (p_demand_total / p_pool_total)) * access_of_roots
+  pool_acess_po_sol = (pool_po_soluble * 
+                         (p_demand_total / p_pool_total)) * access_of_roots
+  pool_acess_pi_insol = (pool_pi_insoluble * 
+                           (p_demand_total / p_pool_total)) * access_of_roots
   pool_access_total = pool_acess_pi_sol + pool_acess_po_sol + pool_acess_pi_insol
   
-  ## final results
-  p_uptake_by_plants = pool_access_total + Presorption_total # P uptake plants
+  ## final results, p uptake capability of plants
+  ## how much the p is available to the plant 
+  p_uptake_by_plants = pool_access_total + p_resorption_total
   
   # remaining pool values
-  remaining_pool_pi_sol = pool_pi_sol - pool_acess_pi_sol
-  remaining_pool_po_sol = pool_po - pool_acess_po_sol
-  remaining_pool_pi_insol = pool_pi_insol - pool_acess_pi_insol
+  remaining_pool_pi_soluable = pool_pi_soluable - pool_acess_pi_sol
+  remaining_pool_po_soluble = pool_po_soluble - pool_acess_po_sol
+  remaining_pool_pi_insoluble = pool_pi_insoluble - pool_acess_pi_insol
+  remaining_p_pool_total = remaining_pool_pi_soluable + 
+    remaining_pool_po_soluble +
+    remaining_pool_pi_insoluble
   
 
   
   # output results -------------------------------------------------------------
   results <- data.frame('p_uptake_by_plants' = p_uptake_by_plants,
-                        'pool_pi_sol' = pool_pi_sol,
-                        'pool_pi_sol_after' = remaining_pool_pi_sol,
-                        'pool_po_start' = pool_po,
-                        'pool_po_after' = remaining_pool_po_sol,
-                        'pool_pi_insol_start' = pool_pi_insol,
-                        'pool_pi_insol_after' = remaining_pool_pi_insol,
-                        'total_p_pools' = total_Ppools,
-                        'pool_access_pi_sol' = pool_acess_pi_sol,
-                        'pool_access_po_sol' = pool_acess_po_sol,
-                        'pool_access_pi_insol' = pool_acess_pi_insol,
-                        'pH_soil' = pH_soil,
+                        'p_pool_start_total' = p_pool_total, 
+                        'p_pool_remaining_total' = remaining_p_pool_total,
+                        'soil_ph' = soil_ph,
                         'ph_mod' = pH_mod,
                         'root_length' = root_length, 
-                        'Pdemand_canopy' = Pdemand_canopy,
-                        'Pdemand_wood' = Pdemand_wood,
-                        'Pdemand_roots' = Pdemand_roots,
-                        'Pdemand_total' = Pdemand_total,
-                        'Presorption_canopy' = Presorption_canopy,
-                        'Presorption_wood' = Presorption_wood,
-                        'Presorption_roots' = Presorption_roots,
-                        'Presorption_total' = Presorption_total,
-                        "AccessP(Soil_accessible_p)" = AccessP)
+                        'p_demand_canopy' = p_demand_canopy,
+                        'p_demand_wood' = p_demand_wood,
+                        'p_demand_roots' = p_demand_roots,
+                        'p_demand_total' = p_demand_total,
+                        'p_resorp_canopy' = p_resorp_canopy,
+                        'p_resorp_wood' = p_resorp_wood,
+                        'p_resorp_roots' = p_resorp_roots,
+                        'p_resorption_total' = p_resorption_total,
+                        "access_of_roots(Soil_accessible_p)" = access_of_roots)
   return(results)
 }
+
+
+
 
 
 

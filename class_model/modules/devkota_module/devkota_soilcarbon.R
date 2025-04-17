@@ -44,40 +44,36 @@
 
 #############################################################
 
-# The function takes litter biomass, percentage of carbon in litter, 
-# proportion of carbon that goes to particulte organic carbon (POC),
-# proportion of C assimilated by microbes, and proportion of easily decomposable
-# POC as inputs. The calculates the labile and recalitrant carbon fraction based
-# the input provided and results the data frame with total litter carbon, labile
-# carbon and recalcitrant carbon sequestered in the soil.
+# The function takes litter biomass, and predicts the labile, recalcitrant 
+# carbon fraction, and CO2 release from soil under different
+# environmental conditions
 #
 
 carbon_fraction <- function(LB = 1000,  # Litter biomass
-                                c = 0.4,    # Base POC to DOC rate
-                                d = 0.3,    # Base MOC to DOC rate
-                                f = 0.02,   # % MBC to DOC (recycling)
-                                h = 0.2,    # DOC respiration rate
+                            r_poc = 0.4,    # Base POC to DOC rate
+                            r_moc = 0.3,    # Base net DOC to MOC rate
+                            r_resp = 0.2,    # DOC respiration rate
                                 
-                                # Environmental inputs
-                                T = 20,       
-                                W = 0.25,
-                                Q10 = 2,
-                                T_ref = 20,
-                                W_opt = 0.3,
+                            # Environmental inputs
+                            temp = 20,  # average soil temperature   
+                            W = 0.25, # soil water content
+                            Q10 = 2, 
+                            T_ref = 20,
+                            W_opt = 0.3,
                                 
-                                # New: clay content and CUE
-                                clay = 0.25,     # soil clay fraction (0–1)
-                                k_clay = 0.15,   # clay stabilization coefficient
-                                CUE = 0.4        # carbon use efficiency
+                            # clay content and CUE
+                            clay = 0.25,     # soil clay fraction
+                            k_clay = 0.15,   # clay stabilization coefficient
+                            CUE = 0.4        # carbon use efficiency
 ) {
   # Environmental modifiers
-  fT <- Q10 ^ ((T - T_ref) / 10)
+  fT <- Q10 ^ ((temp - T_ref) / 10)
   fW <- 1 - ((W - W_opt) / W_opt)^2
   fW <- max(fW, 0)
   env_mod <- fT * fW
   
-  # Recalculate e from CUE and respiration
-  e <- (CUE / (1 - CUE)) * h  # derived from microbial C partitioning
+  # calculate microbial carbon modifier from CUE and respiration
+  mbc_mod <- (CUE / (1 - CUE)) * r_resp  # derived from microbial C partitioning
   
   # Carbon partitioning
   LC  <- LB * 0.5  # Assumption: Average carbon content in plant litter is 50%
@@ -86,36 +82,37 @@ carbon_fraction <- function(LB = 1000,  # Litter biomass
   CO2_initial <- LC * 0.40 * env_mod
   
   # Modify conversion rates by environment
-  c_mod <- c * env_mod
-  d_mod <- d * env_mod
+  r_poc_mod <- r_poc * env_mod
+  r_moc_mod <- r_moc * env_mod * clay * k_clay
   
-  # DOC pool includes direct litter + converted POC/MOC
-  DOC <- LC * (1 - (a + b)) + POC * c_mod + MOC * d_mod
+  
+  # DOC pool includes direct litter + converted POC
+  DOC <- DOC_initial + POC_initial * r_poc_mod
+  
+  # DOC to MOC stabilization
+  MOC <- DOC * r_moc_mod
   
   # Microbial uptake and respiration
-  DOC_uptake <- DOC * e * env_mod
-  respired <- DOC * h * env_mod
+  DOC_uptake <- DOC * mbc_mod * env_mod
+  DOC_respired <- DOC * r_resp * env_mod
   MBC <- DOC_uptake
   
-  # DOC → MOC stabilization
-  DOC_to_MOC <- DOC * clay * k_clay
   
   # Final labile DOC available after respiration, recycling, and stabilization
-  labile <- DOC - respired + MBC * f - DOC_to_MOC
-  recalcitrant <- (1 - c_mod) * POC + (1 - d_mod) * MOC + DOC_to_MOC
+  labile <- DOC - DOC_respired + MBC * (1-r_resp) - MOC
+  recalcitrant <- (1 - r_poc_mod) * POC_initial + MOC
+  heter_resp <- CO2_initial + DOC_respired
   
   result <- data.frame(
-    T = T,
-    W = W,
-    env_mod = env_mod,
-    litter_c = LC,
-    microbial_carbon = MBC,
-    CO2_release = respired,
-    DOC_to_MOC = DOC_to_MOC,
-    labile_fraction = labile,
-    recal_frac = recalcitrant,
-    clay = clay,
-    CUE = CUE
+    'T' = temp,
+    'W' = W,
+    'litter_c' = LC,
+    'microbial_carbon' = MBC,
+    'CO2_release' = heter_resp,
+    'labile_fraction' = labile,
+    'recal_fraction' = recalcitrant,
+    'clay' = clay,
+    'CUE' = CUE
   )
   
   return(result)

@@ -4,7 +4,6 @@
 # load libraries ---------------------------------------------------------------
 library(R.utils)
 library(ggplot2)
-library(patchwork)
 
 # load model -------------------------------------------------------------------
 source('kelley_p_uptake&storage.R')
@@ -35,8 +34,7 @@ plot_roots <- ggplot(test_roots_df, aes(x = root_length_average, y = p_uptake)) 
     title = "Effect of Root Length on Phosphorus Uptake",
     x = "Root Length Average (m)",
     y = "P Uptake (g C m⁻² yr⁻¹)"
-  ) +
-  theme_minimal()
+  )
  
 
 plot_ph <- ggplot(test_ph_df, aes(x = soil_ph, y = p_uptake)) +
@@ -47,7 +45,7 @@ plot_ph <- ggplot(test_ph_df, aes(x = soil_ph, y = p_uptake)) +
     x = "Soil pH",
     y = "P Uptake (g C m⁻² yr⁻¹)"
   ) +
-  theme_minimal()
+  scale_x_continuous(breaks = seq(1, 14, by = 1))
 
 
 plot_soil <- ggplot(test_roots_df, aes(x = root_length_average, y = p_pool_leftover)) +
@@ -57,27 +55,30 @@ plot_soil <- ggplot(test_roots_df, aes(x = root_length_average, y = p_pool_lefto
     title = "P Left Over vs. Root Length",
     x = "Average Root Length (m)",
     y = "P Left Over (gP m⁻² y⁻¹)"
-  ) +
-  theme_minimal()
+  )
 
+
+plot_roots
+plot_ph
+plot_soil
 
 
 
 ## saving figures --------------------------------------------------------------
-# 
-# # mrk - add save to a specific folder later
-# ggsave(plot_roots,
-#        filename = "../class_model/modules/kelley_module/figures/kelley_plot_rootlength_v3.png",
-#        device = "png",
-#        height = 6, width = 9, units = "in")
-# 
-# ggsave(plot_ph,
-#        filename = "../class_model/modules/kelley_module/figures/kelley_plot_pH2_updated_v3.png",
-#        device = "png",
-#        height = 6, width = 9, units = "in")
-# 
-# ggsave(plot_soil,
-#        filename = "../class_model/modules/kelley_module/figures/kelley_plot_soil_pools_v3.png",
-#        device = "png",
-#        height = 6, width = 9, units = "in")
+
+# mrk - add save to a specific folder later
+ggsave(plot_roots,
+       filename = "./figures/kelley_plot_rootlength_v4.png",
+       device = "png",
+       height = 6, width = 9, units = "in")
+
+ggsave(plot_ph,
+       filename = "./figures/kelley_plot_pH2_updated_v4.png",
+       device = "png",
+       height = 6, width = 9, units = "in")
+
+ggsave(plot_soil,
+       filename = "./figures/kelley_plot_soil_pools_v4.png",
+       device = "png",
+       height = 6, width = 9, units = "in")
 

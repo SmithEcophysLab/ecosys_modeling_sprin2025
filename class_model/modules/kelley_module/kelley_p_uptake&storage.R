@@ -48,9 +48,9 @@ kelley_module <- function (
     
     ## P available/ the 3 main pools 
     ### (gP m-2 y-1) grams P per meter squared
-    pool_pi_soluble = 30, # soluble Pi (immediately ready for plants, small #)
-    pool_po_soluble = 50, # soluble Po (mineralization required convert to Pi)
-    pool_pi_insoluble = 100, # insoluble Pi (very very slowly available)
+    pool_pi_soluble = 50, # soluble Pi (immediately ready for plants, small #)
+    pool_po_soluble = 30, # soluble Po (mineralization required convert to Pi)
+    pool_pi_insoluble = 10, # insoluble Pi (very very slowly available)
     
     
     # soil influences
@@ -74,7 +74,7 @@ kelley_module <- function (
   
   ## P in soil
   ### units gP m-2
-  ph_mod <- ifelse(soil_ph >= 6 & soil_ph <= 8, 1, 0.5) 
+  ph_mod <- ifelse(soil_ph >= 4 & soil_ph <= 6, 1, 0.5) 
   p_pool_total = pool_pi_soluble + pool_po_soluble + pool_pi_insoluble
   p_pool_total_ph_mod = (p_pool_total) * ph_mod # adding pH modification to soils
   
@@ -135,14 +135,14 @@ kelley_module <- function (
                         'ph_mod' = ph_mod,
                         'p_pool_total' = p_pool_total,
                         'p_pool_total_ph_mod' = p_pool_total_ph_mod,
-                        'p_annual_availablity' = p_annual_availablity,
                         'root_length_mod' = root_length_mod,
                         'p_annual_availablity_root_mod', p_annual_availablity_root_mod,
                         'cp_ratio_general' = cp_ratio_general,
                         'p_pool_total_c_equivalent' = p_pool_total_c_equivalent,
                         'p_demand_total_c_equivalent' = p_demand_total_c_equivalent,
+                        'p_uptake_gp' = p_uptake_gp,
+                        'p_annual_availablity' = p_annual_availablity,
                         'p_pool_leftover' = p_pool_leftover)
   return(results)
 }
-
 

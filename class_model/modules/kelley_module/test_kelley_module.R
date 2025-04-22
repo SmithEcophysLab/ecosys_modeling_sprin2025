@@ -11,9 +11,14 @@ source('kelley_p_uptake&storage.R')
 ## run model 
 kelley_module()
 
-kelley_module(root_length = seq(0.1, 1, by = 0.1))
-kelley_module(soil_ph = seq(1, 14, by = 0.5))
+test_roots <- lapply(seq(0.1, 1, by = 0.1), function(x) 
+  kelley_module(root_length_average = x))
 
+test_roots_df <- do.call(rbind, test_roots)
+test_roots_df
 
+test_ph <- lapply(seq(1, 14, by = 1), function(x) 
+  kelley_module(soil_ph = x))
 
-testing_ph <- kelley_module(soil_ph = seq(1, 14, by = 0.5))
+test_ph_df <- do.call(rbind, test_ph)
+test_ph_df

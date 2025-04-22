@@ -11,77 +11,73 @@ source('kelley_p_uptake&storage.R')
 
 
 # run model, multiple sequences ------------------------------------------------
-modeled_root_length <- kelley_module(root_length = seq(0.1, 1, by = 0.1))
-modeled_soil_ph <- kelley_module(soil_ph = seq(1, 14, by = 0.5))
+
+test_roots <- lapply(seq(0.1, 1, by = 0.1), function(x) 
+  kelley_module(root_length_average = x))
+
+test_roots_df <- do.call(rbind, test_roots)
+test_roots_df
+
+test_ph <- lapply(seq(1, 14, by = 1), function(x) 
+  kelley_module(soil_ph = x))
+
+test_ph_df <- do.call(rbind, test_ph)
+test_ph_df
+
+# figures ----------------------------------------------------------------------
 
 
-# figures from model -----------------------------------------------------------
 
-## Root length
-plot_rootlength <- 
-  ggplot(modeled_root_length, aes (x = root_length, y = p_uptake_by_plants)) +
-  geom_line( color = "brown", size = 2) +
-  labs(title = "Effect of Root Length on Phosphorus Uptake", 
-       x = expression("Root Length Average in Soil (cm/cm"^3*")"), 
-       y = "Phosphorus Uptake (kg/ha/year)")
+plot_roots <- ggplot(test_roots_df, aes(x = root_length_average, y = p_uptake)) +
+  geom_line(color = "forestgreen", size = 2) +
+  geom_point(color = "darkgreen", size = 4) +
+  labs(
+    title = "Effect of Root Length on Phosphorus Uptake",
+    x = "Root Length Average (m)",
+    y = "P Uptake (g C m⁻² yr⁻¹)"
+  ) +
+  theme_minimal()
+ 
+
+plot_ph <- ggplot(test_ph_df, aes(x = soil_ph, y = p_uptake)) +
+  geom_line(color = "steelblue", size = 2) +
+  geom_point(color = "navy", size = 4) +
+  labs(
+    title = "Effect of Soil pH on Phosphorus Uptake",
+    x = "Soil pH",
+    y = "P Uptake (g C m⁻² yr⁻¹)"
+  ) +
+  theme_minimal()
 
 
-## pH P uptake by plants
-plot_pH <- 
-  ggplot(modeled_soil_ph, aes (x = soil_ph, y = p_uptake_by_plants)) +
-  geom_line(color = "#071f35", size = 2) +
-  labs(title = "Effect of pH on Phosphorus Uptake", 
-       x = "Soil pH", 
-       y = "Phosphorus Uptake (kg/ha/year)") +
-  scale_x_continuous(breaks = seq(1, 14, by = 1))
+plot_soil <- ggplot(test_roots_df, aes(x = root_length_average, y = p_pool_leftover)) +
+  geom_line(color = "red", size = 2) +
+  geom_point(size = 4, color = "darkred") +
+  labs(
+    title = "P Left Over vs. Root Length",
+    x = "Average Root Length (m)",
+    y = "P Left Over (gP m⁻² y⁻¹)"
+  ) +
+  theme_minimal()
 
 
-### add the pools later
+
+
+## saving figures --------------------------------------------------------------
 # 
-# ## pH influence on remaining pi soluble pool
-# plot_pi_sol <- ggplot(modeled_soil_ph, 
-#                       aes (x = soil_ph, y = pool_pi_sol_after)) +
-#   geom_line(color = "pink", size = 2) +
-#   labs(title = "Effect of pH on Remaining Pool of Soluble Inorganic P", 
-#        x = "Soil pH", 
-#        y = expression("Soluble Inorganic P Pool (kg ha"^{-1}*")")) +
-#   scale_x_continuous(breaks = seq(1, 14, by = 1))
-# 
-# ## pH influence on remaining po soluble pool
-# plot_po <- ggplot(modeled_soil_ph, aes (x = soil_ph, y = pool_po_after)) +
-#   geom_line(color = "lightblue", size = 2) +
-#   labs(title = "Effect of pH on Remaining Pool of Soluble Organic P", 
-#        x = "Soil pH", 
-#        y = expression("Soluble Organic P Pool (kg ha"^{-1}*")")) +
-#   scale_x_continuous(breaks = seq(1, 14, by = 1))
-# 
-# ## pH influence on remaining pi insoluble pool
-# plot_pi_insol <- ggplot(modeled_soil_ph, 
-#                         aes (x = soil_ph, y = pool_pi_insol_after)) +
-#   geom_line(color = "darkred", size = 2) +
-#   labs(title = "Effect of pH on Remaining Pool of Insoluable Inorganic P", 
-#        x = "Soil pH", 
-#        y = expression("Insoluable Inorganic P (kg ha"^{-1}*")")) +
-#   scale_x_continuous(breaks = seq(1, 14, by = 1))
-# 
-# 
-# ## combining the soil plots together
-# combined_soil_plots <- plot_pi_sol + plot_pi_insol + plot_po
-
-## saving images ---------------------------------------------------------------
-
-# mrk - add save to a specific folder later
-# ggsave(plot_rootlength,
-#        filename = "kelley_plot_rootlength2.png",
+# # mrk - add save to a specific folder later
+# ggsave(plot_roots,
+#        filename = "../class_model/modules/kelley_module/figures/kelley_plot_rootlength_v3.png",
 #        device = "png",
 #        height = 6, width = 9, units = "in")
 # 
-# ggsave(plot_pH,
-#        filename = "kelley_plot_pH2_updated.png",
+# ggsave(plot_ph,
+#        filename = "../class_model/modules/kelley_module/figures/kelley_plot_pH2_updated_v3.png",
 #        device = "png",
 #        height = 6, width = 9, units = "in")
 # 
-# ggsave(combined_soil_plots,
-#        filename = "./figures/kelley_plot_soil_pools.png",
+# ggsave(plot_soil,
+#        filename = "../class_model/modules/kelley_module/figures/kelley_plot_soil_pools_v3.png",
 #        device = "png",
 #        height = 6, width = 9, units = "in")
+

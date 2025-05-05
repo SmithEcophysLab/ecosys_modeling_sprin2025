@@ -11,19 +11,21 @@
 # (de Queiroz et al., 2019; Thakur et al., 2022)
 
 # Here,
-# NPP = Net Primary production
-# LB= Litterfall biomass (gram)
+# NPP = Net Primary production (µmol m-2 s-1)
+# LB= Litterfall biomass (µmol m-2 s-1)
 # MAP = Mean Annual Precipitation (mm)
 # Tavg = average temperature (°C)
-# a = tuning constant that control sharpness of the data ()
+# a = overall tuning constant (°C-1)
+# b = tuning constant of precipitation (°C/mm)
 
 Litter <- function(NPP = 1000,
                    Tavg = seq(10, 35, 0.5),   
                    MAP = seq(500, 2000, 10), 
-                   a = 0.05) {                
+                   a = 0.05,
+                   b = 0.01) {                
   
   grid <- expand.grid(Tavg = Tavg, MAP = MAP)
-  grid$x <- exp(-a * (grid$Tavg - grid$MAP / 100)^2)
+  grid$x <- exp(-a * (grid$Tavg - grid$MAP*b)^2)
   grid$LitterBiomass <- grid$x * NPP
   return(grid)
 }

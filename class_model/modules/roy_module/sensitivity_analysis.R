@@ -19,8 +19,9 @@ library(ggplot2)
 Litter <- function(NPP = 1000,
                    Tavg = seq(15, 25, 0.05),   
                    MAP = 2000, 
-                   a = 0.05) {                
-  x <- exp(-a * (Tavg - MAP/100)^2)
+                   a = 0.05,
+                   b = 0.01) {                
+  x <- exp(-a * (Tavg - MAP*b)^2)
   LB <- x*NPP
   return(data.frame(LB = LB, Tavg = Tavg, MAP = MAP)) 
 }
@@ -30,7 +31,7 @@ df <- Litter()
 ggplot(df, aes(x = Tavg, y = LB)) +geom_point() + labs(
   title = "Impact of average Temperature on Litter Biomass(MAP = constant)",
   x = "Temperature (°C)",
-  y = "Litter Biomass (gram)")+theme_bw() +
+  y = "Litter Biomass (µmol m-2 s-1)")+theme_bw() +
   theme(plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
         axis.title = element_text(size = 12, face = "bold"),
         axis.text = element_text(size = 10, face = "bold"))
@@ -41,8 +42,9 @@ ggplot(df, aes(x = Tavg, y = LB)) +geom_point() + labs(
 Litter <- function(NPP = 1000,
                    Tavg = 20,   
                    MAP = seq(800, 2000, 2), 
-                   a = 0.05) {                
-  x <- exp(-a * (Tavg - MAP/100)^2)
+                   a = 0.05,
+                   b = 0.01) {                
+  x <- exp(-a * (Tavg - MAP*b)^2)
   LB <- x*NPP
   return(data.frame(LB = LB, Tavg = Tavg, MAP = MAP)) 
 }
@@ -52,7 +54,7 @@ df <- Litter()
 ggplot(df, aes(x = MAP, y = LB)) +geom_point() + labs(
   title = "Impact of MAP on Litter Biomass(Tavg = constant)",
   x = "Precipitation (°C)",
-  y = "Litter Biomass (gram)") +
+  y = "Litter Biomass (µmol m-2 s-1)") +
   theme_bw() +
   theme(plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
         axis.title = element_text(size = 12, face = "bold"),
@@ -63,10 +65,11 @@ ggplot(df, aes(x = MAP, y = LB)) +geom_point() + labs(
 Litter <- function(NPP = 1000,
                    Tavg = seq(10, 35, 0.5),   
                    MAP = seq(500, 2000, 10), 
-                   a = 0.05) {                
+                   a = 0.05,
+                   b = 0.01) {                
   
   grid <- expand.grid(Tavg = Tavg, MAP = MAP)
-  grid$x <- exp(-a * (grid$Tavg - grid$MAP / 100)^2)
+  grid$x <- exp(-a * (grid$Tavg - grid$MAP*b)^2)
   grid$LitterBiomass <- grid$x * NPP
   return(grid)
 }
@@ -78,7 +81,7 @@ ggplot(df, aes(x = Tavg, y = LitterBiomass, color = MAP)) +
   labs(
     title = "Impact of Temperature and Precipitation on Litter Biomass",
     x = "Average Temperature (°C)",
-    y = "Litter Biomass"
+    y = "Litter Biomass (µmol m-2 s-1)"
   )+ theme_bw() +
   theme(plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
         axis.title = element_text(size = 12, face = "bold"),

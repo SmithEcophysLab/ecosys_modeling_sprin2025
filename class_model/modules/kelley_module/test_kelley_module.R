@@ -11,9 +11,11 @@ source('kelley_p_uptake&storage.R')
 ## run model 
 kelley_module()
 
-kelley_module(root_length = seq(0.1, 1, by = 0.1))
-kelley_module(soil_ph = seq(1, 14, by = 0.5))
+## testing the root length
+kelley_module(root_length_average = seq(0, 200, 500))
+
+## testing the pH
+kelley_module(soil_ph = seq(1, 14, 1))
 
 
 
-testing_ph <- kelley_module(soil_ph = seq(1, 14, by = 0.5))

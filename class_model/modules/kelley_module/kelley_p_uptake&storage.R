@@ -104,15 +104,9 @@ kelley_module <- function (
   # sub-module 3) p uptake -----------------------------------------------------
   
   
-  if(p_demand_total_c_equivalent < p_pool_total_c_equivalent){
-
-    p_uptake <- p_demand_total_c_equivalent
-
-  }else{
-
-    p_uptake <- p_pool_total_c_equivalent
-
-  }
+  p_uptake <- ifelse(p_demand_total_c_equivalent < p_pool_total_c_equivalent, 
+                     p_demand_total_c_equivalent, 
+                     p_pool_total_c_equivalent)
   
   p_uptake_v2 <- p_pool_total_c_equivalent - p_demand_total
   
